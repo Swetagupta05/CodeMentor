@@ -82,33 +82,48 @@ CodeMentor/
 ├── DESIGN_SYSTEM.md
 ├── README.md
 └── index.html
-🚀 Getting Started
-Prerequisites
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
 - A modern web browser.
 - Visual Studio Code (recommended).
 - Live Server extension (recommended).
-Installation
-1. Clone the repository
+
+### Installation
+
+**1. Clone the repository**
+
+```bash
 git clone https://github.com/Swetagupta05/CodeMentor.git
+```
 
+**2. Navigate to the project directory**
 
-2. Navigate to the project directory
+```bash
 cd CodeMentor
+```
 
+**3. Open in Visual Studio Code**
 
-3. Open the project in Visual Studio Code
+```bash
 code .
+```
 
+**4. Run the application**
 
-4. Run the application
+Open `index.html` using Live Server.
 
-Open index.html using the Live Server extension.
+Alternatively, open `index.html` directly in your browser.
 
-Alternatively, open index.html directly in your browser.
-🏗️ Development Roadmap
+## 🏗️ Development Roadmap
+
 The current repository contains the frontend implementation and design system.
 
 Planned development includes:
+
 - [ ] Java Spring Boot backend.
 - [ ] PostgreSQL database integration.
 - [ ] REST API architecture.
@@ -116,9 +131,11 @@ Planned development includes:
 - [ ] Persistent student profiles and learning progress.
 - [ ] Backend integration with the existing frontend.
 - [ ] Automated testing and deployment.
-🎨 Design Documentation
-The project's visual guidelines, layout architecture, typography, component specifications, and color system are documented in:
 
-DESIGN_SYSTEM.md
-🔗 Repository
-GitHub: Swetagupta05/CodeMentor
+## 🎨 Design Documentation
+
+See [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md) for the project's visual guidelines, layout architecture, typography, component specifications, and color system.
+
+## 🔗 Repository
+
+[GitHub — Swetagupta05/CodeMentor](https://github.com/Swetagupta05/CodeMentor)
