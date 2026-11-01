@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeMentor — IT Preparation Hub | Learn. Practise. Build. Get Hired.</title>
+  
+  <!-- Google Fonts: Inter, Manrope, Playfair Display, Cormorant Garamond & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN for utility scaffolding -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- CodeMentor Refined Design System Stylesheet -->
+  <link rel="stylesheet" href="styles/design-system.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cm: {
+              appBg: '#05271F',
+              sidebar: '#003D30',
+              header: '#003D30',
+              surface: '#075B45',
+              card: '#087653',
+              cardElevated: '#146B50',
+              input: '#05271F',
+              brand: '#075B45',
+              mint: '#77D0B8',
+              textPrimary: '#F7F2E7',
+              textSecondary: '#B7C8BE',
+              textMuted: '#82958A',
+              border: '#315B4C',
+              borderSubtle: '#146B50',
+              // New Emerald, Ivory, Gold Color System
+              emeraldDeep: '#003D30',
+              emeraldPrimary: '#075B45',
+              greenRich: '#087653',
+              greenSecondary: '#146B50',
+              greenDark: '#05271F',
+              ivoryWarm: '#F7F2E7',
+              creamSoft: '#EFE7D7',
+              champagne: '#E6D5B7',
+              goldMuted: '#D6A94F',
+              goldSoft: '#E7C77E',
+              textIvoryDark: '#18251F',
+              borderGreenSubtle: '#315B4C',
+              borderCream: '#D8CDB9'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Manrope', 'Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#101815] text-[#F1F5F2] antialiased selection:bg-[#77D0B8] selection:text-[#0E1613]">
+
+  <!-- =====================================================================
+       GLOBAL FIXED APPLICATION SHELL
+       Grid layout: Fixed 248px Sidebar, Fixed 66px Header, Scrolling Content
+       ===================================================================== -->
+  <!-- Mobile Sidebar Backdrop (Active only on <=1024px screens) -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
+
+  <!-- =====================================================================
+       GLOBAL FIXED APPLICATION SHELL
+       Grid layout: Fixed 248px Sidebar, Fixed 72px Header, Scrolling Content
+       ===================================================================== -->
+  <div class="app-shell">
+
+    <!-- 1. PERSISTENT LEFT SIDEBAR (NEVER SCROLLS WITH PAGE) -->
+    <aside class="sidebar">
+      
+      <!-- A. Top Logo & Brand Section — 72px Fixed Height -->
+      <div class="sidebar-logo">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('dashboard')">
+          <div class="w-[36px] h-[36px] rounded-lg bg-[#182B22] border border-[#2B6555] flex items-center justify-center flex-shrink-0 shadow-sm">
+            <svg class="w-5 h-5 text-[#77D0B8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L4 6v12l8 4 8-4V6l-8-4z"/>
+              <path d="M9 10l-2 2 2 2M15 10l2 2-2 2M13 8l-2 8" stroke="#77D0B8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-[19px] font-bold tracking-tight text-[#F1F5F2] font-display leading-tight">CodeMentor</div>
+            <div class="text-xs uppercase tracking-widest text-[#77D0B8] font-mono font-medium">IT Prep Hub</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- B. Navigation Section (Scrolls internally only if content overflows) -->
+      <div class="sidebar-navigation space-y-5">
+        
+        <!-- Section: LEARNING -->
+        <div>
+          <div class="px-2.5 text-xs font-semibold uppercase tracking-wider text-[#75857B] mb-1.5 font-mono">Learning</div>
+          <div class="space-y-1">
+            <a href="#" data-view-target="dashboard" class="cm-nav-item active">
+              <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Dashboard</span>
+            </a>
+            <a href="#" data-view-target="learning-paths" class="cm-nav-item">
+              <i data-lucide="route" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Learning Paths</span>
+            </a>
+            <a href="#" data-view-target="resources" class="cm-nav-item">
+              <i data-lucide="book-open" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Courses &amp; Resources</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section: PRACTICE -->
+        <div>
+          <div class="px-2.5 text-xs font-semibold uppercase tracking-wider text-[#75857B] mb-1.5 font-mono">Practice</div>
+          <div class="space-y-1">
+            <a href="#" data-view-target="dsa" class="cm-nav-item">
+              <i data-lucide="code-2" class="w-4 h-4 text-[#75857B]"></i>
+              <span>DSA Practice</span>
+            </a>
+            <a href="#" data-view-target="interview-prep" class="cm-nav-item">
+              <i data-lucide="message-square-text" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Interview Preparation</span>
+            </a>
+            <a href="#" data-view-target="coding-challenges" class="cm-nav-item">
+              <i data-lucide="trophy" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Coding Challenges</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section: BUILD -->
+        <div>
+          <div class="px-2.5 text-xs font-semibold uppercase tracking-wider text-[#75857B] mb-1.5 font-mono">Build</div>
+          <div class="space-y-1">
+            <a href="#" data-view-target="projects" class="cm-nav-item">
+              <i data-lucide="folder-kanban" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Projects</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section: MY PROGRESS -->
+        <div>
+          <div class="px-2.5 text-xs font-semibold uppercase tracking-wider text-[#75857B] mb-1.5 font-mono">My Progress</div>
+          <div class="space-y-1">
+            <a href="#" data-view-target="analytics" class="cm-nav-item">
+              <i data-lucide="chart-no-axes-combined" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Progress &amp; Analytics</span>
+            </a>
+            <a href="#" data-view-target="bookmarks" class="cm-nav-item">
+              <i data-lucide="bookmark" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Bookmarks</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section: ACCOUNT -->
+        <div>
+          <div class="px-2.5 text-xs font-semibold uppercase tracking-wider text-[#75857B] mb-1.5 font-mono">Account</div>
+          <div class="space-y-1">
+            <a href="#" data-view-target="profile" class="cm-nav-item">
+              <i data-lucide="user-check" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Student Profile</span>
+            </a>
+            <a href="#" data-view-target="settings" class="cm-nav-item">
+              <i data-lucide="settings" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Settings</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section: PUBLIC & AUTH -->
+        <div>
+          <div class="px-2.5 text-xs font-semibold uppercase tracking-wider text-[#75857B] mb-1.5 font-mono">Public Portal</div>
+          <div class="space-y-1">
+            <a href="#" data-view-target="landing" class="cm-nav-item">
+              <i data-lucide="globe" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Landing Page</span>
+            </a>
+            <a href="#" data-view-target="auth" class="cm-nav-item">
+              <i data-lucide="log-in" class="w-4 h-4 text-[#75857B]"></i>
+              <span>Sign In / Register</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- C. Fixed Bottom Profile Section (Permanently anchored, never scrolls away) -->
+      <div class="sidebar-profile">
+        <div class="p-2.5 rounded-lg bg-[#16231D] border border-[#223129] flex items-center justify-between hover:bg-[#1C2C24] transition-all cursor-pointer group" onclick="switchView('profile')">
+          <div class="flex items-center gap-2.5">
+            <div class="w-[36px] h-[36px] rounded-full bg-[#1F3329] border border-[#2B6555] flex items-center justify-center font-bold text-xs text-[#77D0B8] flex-shrink-0">
+              SG
+            </div>
+            <div class="overflow-hidden leading-tight">
+              <div class="text-[13.5px] font-semibold text-[#F1F5F2] truncate">Sweta Gupta</div>
+              <div class="text-xs text-[#75857B] truncate font-mono">swetagupta787@gmail.com</div>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-[#75857B] group-hover:text-[#F1F5F2] transition-colors"></i>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- 2. FIXED TOP HEADER — 72px HIGH, BALANCED, UNCOMPRESSED, FIXED -->
+    <header class="top-header">
+      
+      <!-- Left: Mobile Toggle & Breadcrumb Navigation (13.5px Inter) -->
+      <div class="flex items-center gap-3">
+        <!-- Mobile Drawer Toggle (Visible only on <=1024px) -->
+        <button onclick="toggleMobileSidebar()" class="lg:hidden w-10 h-10 rounded-lg bg-[#16231D] border border-[#2A3931] flex items-center justify-center text-[#A8B5AD] hover:text-[#F1F5F2] hover:border-[#3E5448] transition-all" title="Toggle Navigation Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Breadcrumb with Inter 13.5px -->
+        <nav class="flex items-center gap-2 text-[13.5px] font-sans font-medium" aria-label="Breadcrumb">
+          <span class="text-[#75857B] hover:text-[#A8B5AD] cursor-pointer transition-colors" onclick="switchView('dashboard')">CodeMentor</span>
+          <span class="text-[#46554C]">/</span>
+          <h1 id="top-breadcrumb-title" class="text-[14px] font-medium text-[#F1F5F2] tracking-tight">Student Dashboard</h1>
+        </nav>
+      </div>
+
+      <!-- Centre: Search Field (380–440px Responsive Width, 13.5px Text, 42px Height) -->
+      <div class="w-full max-w-[420px] min-w-[280px] relative hidden md:block">
+        <i data-lucide="search" class="w-[18px] h-[18px] text-[#75857B] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+        <input 
+          type="text" 
+          placeholder="Search topics, courses, questions and resources..." 
+          class="cm-input pl-10 pr-16 text-[13.5px] h-[42px] rounded-lg bg-[#17231D] border border-[#2A3931] text-[#F1F5F2] placeholder-[#75857B] focus:border-[#77D0B8] transition-all w-full"
+          onkeyup="if(event.key === 'Enter') { handleDsaSearch(this.value); switchView('dsa'); }"
+        >
+        <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-mono text-[#75857B] bg-[#121C18] px-2 py-0.5 rounded border border-[#223129] pointer-events-none">Ctrl K</kbd>
+      </div>
+
+      <!-- Right: Utility Controls & Student Status (38px Avatar, 19px Notification Icon, 13.5px Streak) -->
+      <div class="flex items-center gap-3.5">
+        <!-- 19px Notification Icon Button -->
+        <button onclick="showToast('You have 2 unread mock interview invitations')" class="w-[40px] h-[40px] rounded-lg bg-[#16231D] border border-[#2A3931] flex items-center justify-center text-[#A8B5AD] hover:text-[#F1F5F2] hover:border-[#3E5448] transition-all relative" title="Notifications">
+          <i data-lucide="bell" class="w-[19px] h-[19px]"></i>
+          <span class="w-2 h-2 rounded-full bg-[#77D0B8] absolute top-2 right-2 border-2 border-[#121C18]"></span>
+        </button>
+
+        <!-- Streak Indicator: Readable 13.5px with 18px Flame -->
+        <div class="h-[40px] px-3.5 rounded-lg bg-[#16231D] border border-[#2A3931] flex items-center gap-2 text-[13.5px] font-semibold text-[#E8B86A]" title="18 Days Active Learning Streak">
+          <i data-lucide="flame" class="w-[18px] h-[18px] fill-current"></i>
+          <span class="font-mono">18 Days</span>
+        </div>
+
+        <!-- Profile Avatar: 38px Standard -->
+        <div class="w-[38px] h-[38px] rounded-full border-2 border-[#2B6555] overflow-hidden cursor-pointer hover:border-[#77D0B8] transition-all flex items-center justify-center bg-[#182B22] text-[#77D0B8] font-bold text-xs flex-shrink-0" onclick="switchView('profile')" title="View Student Profile">
+          SG
+        </div>
+      </div>
+
+    </header>
+
+    <!-- 3. INDEPENDENTLY SCROLLABLE MAIN CONTENT AREA (THE ONLY SCROLL REGION) -->
+    <main id="main-content-scroll" class="main-content">
+
+      <!-- =====================================================================
+           VIEW 1: STUDENT DASHBOARD
+           Refined, Balanced, Developer-Centric (NO Nature Photos / Huge Banners)
+           ===================================================================== -->
+      <div id="view-dashboard" class="cm-view-container active-view space-y-6 max-w-[1400px]">
+        
+        <!-- 1. Welcome & Greeting (Clean, Minimal, Developer-Focused) -->
+        <!-- 1. Welcome & Greeting (Deep Emerald & Gold Editorial Banner) -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#003D30] via-[#075B45] to-[#05271F] border border-[#184D3F] p-6 md:p-7 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div class="space-y-1.5">
+            <span class="text-xs font-mono font-semibold uppercase tracking-widest text-[#D6A94F] flex items-center gap-1.5">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#D6A94F]"></i> Campus Placements 2026–2027 Cohort
+            </span>
+            <h2 class="text-2xl md:text-3xl font-serif font-bold text-[#F7F2E7] tracking-tight">
+              Good morning, Sweta. <em class="font-serif italic font-normal text-[#E7C77E]">Learn with purpose.</em>
+            </h2>
+            <p class="text-xs md:text-sm text-[#B7C8BE]">
+              Continue your structured preparation towards Tier-1 software engineering placements.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-3 self-start sm:self-auto flex-shrink-0">
+            <div class="px-4 py-2.5 rounded-xl bg-[#05271F] border border-[#184D3F] flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-[#D6A94F]/15 border border-[#D6A94F]/30 flex items-center justify-center text-[#D6A94F]">
+                <i data-lucide="flame" class="w-4 h-4 fill-current"></i>
+              </div>
+              <div class="leading-tight">
+                <div class="text-[13.5px] font-bold font-mono text-[#F7F2E7]">18 Day Streak</div>
+                <div class="text-[11px] text-[#E7C77E] font-mono mt-0.5">Top 5% Consistency</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Learning Overview (Mix of Warm Ivory & Deep Emerald for Visual Balance) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Metric 1: Warm Ivory Card -->
+          <div class="cm-card-ivory flex items-center gap-3.5 p-4">
+            <div class="w-10 h-10 rounded-lg bg-[#003D30]/10 flex items-center justify-center text-[#075B45]">
+              <i data-lucide="flame" class="w-5 h-5 text-[#D6A94F] fill-[#D6A94F]/30"></i>
+            </div>
+            <div>
+              <div class="cm-stat-num text-[#18251F] text-2xl font-bold font-mono">18 <span class="text-xs font-normal text-[#556E62]">Days</span></div>
+              <div class="text-xs font-mono uppercase tracking-wider text-[#556E62] mt-0.5 font-semibold">Active Streak</div>
+            </div>
+          </div>
+
+          <!-- Metric 2: Deep Emerald Card -->
+          <div class="cm-card flex items-center gap-3.5 p-4 bg-[#003D30] border-[#184D3F]">
+            <div class="w-10 h-10 rounded-lg bg-[#D6A94F]/15 flex items-center justify-center text-[#D6A94F]">
+              <i data-lucide="book-open" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="cm-stat-num text-[#F7F2E7] text-2xl font-bold font-mono">5 <span class="text-xs font-normal text-[#B7C8BE]">Tracks</span></div>
+              <div class="text-xs font-mono uppercase tracking-wider text-[#82958A] mt-0.5 font-semibold">Courses in Progress</div>
+            </div>
+          </div>
+
+          <!-- Metric 3: Warm Ivory Card -->
+          <div class="cm-card-ivory flex items-center gap-3.5 p-4">
+            <div class="w-10 h-10 rounded-lg bg-[#003D30]/10 flex items-center justify-center text-[#075B45]">
+              <i data-lucide="code-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="cm-stat-num text-[#18251F] text-2xl font-bold font-mono">284 <span class="text-xs font-normal text-[#556E62]">/ 450</span></div>
+              <div class="text-xs font-mono uppercase tracking-wider text-[#556E62] mt-0.5 font-semibold">DSA Solved</div>
+            </div>
+          </div>
+
+          <!-- Metric 4: Deep Forest Card with Gold Accent -->
+          <div class="cm-card flex items-center gap-3.5 p-4 bg-[#05271F] border-[#184D3F]">
+            <div class="w-10 h-10 rounded-lg bg-[#63A982]/15 flex items-center justify-center text-[#63A982]">
+              <i data-lucide="chart-no-axes-combined" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="cm-stat-num text-[#E7C77E] text-2xl font-bold font-mono">88.5%</div>
+              <div class="text-xs font-mono uppercase tracking-wider text-[#82958A] mt-0.5 font-semibold">Placement Ready</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 & 5. Two-Column Layout: Continue Learning (Left) & Today's Goals (Right) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          
+          <!-- LEFT 2 COLUMNS: Continue Learning Cards -->
+          <div class="lg:col-span-2 space-y-3.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="cm-section-title">Current Learning Tracks</h3>
+                <p class="cm-supporting text-[#75857B]">Active roadmaps and modules in progress</p>
+              </div>
+              <button onclick="switchView('learning-paths')" class="text-sm text-[#77D0B8] hover:underline flex items-center gap-1 font-medium">
+                View All Paths <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Course 1: Java Backend -->
+              <div class="cm-card flex flex-col justify-between h-full group p-5 hover:border-[#D6A94F] transition-colors">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="cm-badge cm-badge-status">Backend Track</span>
+                    <span class="text-xs font-mono text-[#D6A94F]">Module 3 of 6</span>
+                  </div>
+                  <h4 onclick="openCourseDetail('java-backend')" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif text-[17px]">
+                    Java Backend Development &amp; Microservices
+                  </h4>
+                  <p class="cm-supporting text-[#B7C8BE] mt-1.5 line-clamp-2">
+                    Spring Boot, REST APIs, Hibernate ORM, Kafka, and enterprise cloud architecture.
+                  </p>
+                  <div class="text-xs text-[#82958A] font-mono mt-3">24 of 40 lessons completed</div>
+                </div>
+
+                <div class="mt-5 space-y-3 pt-3 border-t border-[#315B4C]/60">
+                  <div class="flex items-center justify-between text-xs font-mono">
+                    <span class="text-[#82958A]">Progress</span>
+                    <span class="text-[#D6A94F] font-semibold">60%</span>
+                  </div>
+                  <div class="cm-progress-track">
+                    <div class="cm-progress-bar" style="width: 60%"></div>
+                  </div>
+                  <button onclick="openCourseDetail('java-backend')" class="cm-btn-emerald-pill w-full text-sm justify-center">
+                    Continue Learning Track <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Course 2: Frontend Architecture -->
+              <div class="cm-card flex flex-col justify-between h-full group p-5 hover:border-[#D6A94F] transition-colors">
+                <div>
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="cm-badge cm-badge-status">Frontend Track</span>
+                    <span class="text-xs font-mono text-[#D6A94F]">Module 2 of 5</span>
+                  </div>
+                  <h4 onclick="openCourseDetail('frontend-architecture')" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif text-[17px]">
+                    Frontend Architecture &amp; React 19 Performance
+                  </h4>
+                  <p class="cm-supporting text-[#B7C8BE] mt-1.5 line-clamp-2">
+                    Component lifecycle, hooks, Server Components, TypeScript integration and state managers.
+                  </p>
+                  <div class="text-xs text-[#82958A] font-mono mt-3">14 of 40 lessons completed</div>
+                </div>
+
+                <div class="mt-5 space-y-3 pt-3 border-t border-[#315B4C]/60">
+                  <div class="flex items-center justify-between text-xs font-mono">
+                    <span class="text-[#82958A]">Progress</span>
+                    <span class="text-[#D6A94F] font-semibold">35%</span>
+                  </div>
+                  <div class="cm-progress-track">
+                    <div class="cm-progress-bar" style="width: 35%"></div>
+                  </div>
+                  <button onclick="openCourseDetail('frontend-architecture')" class="cm-btn-emerald-pill w-full text-sm justify-center">
+                    Continue Learning Track <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT 1 COLUMN: Today's Learning Goals -->
+          <div class="space-y-3.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="cm-section-title">Today's Goals</h3>
+                <p class="cm-supporting text-[#75857B]">Actionable daily tasks</p>
+              </div>
+              <span id="goals-count-badge" class="text-xs font-mono text-[#77D0B8] bg-[#14201A] px-2.5 py-1 rounded border border-[#223129]">
+                1 of 4 completed
+              </span>
+            </div>
+
+            <div class="cm-card space-y-1.5 p-3" id="goals-list-container">
+              <!-- Dynamically rendered by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Daily Coding Challenge (Technical, Compact, Proportionate) -->
+        <div class="cm-card flex flex-col sm:flex-row sm:items-center justify-between gap-5 p-5">
+          <div class="space-y-2.5 max-w-2xl">
+            <div class="flex items-center gap-2.5 flex-wrap">
+              <span class="text-xs uppercase font-bold tracking-wider text-[#77D0B8] bg-[#14201A] px-2.5 py-1 rounded border border-[#223129] font-mono">
+                Daily Coding Challenge
+              </span>
+              <span class="cm-badge cm-badge-easy">Easy</span>
+              <span class="text-xs text-[#75857B] font-mono flex items-center gap-1">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i> 15 mins
+              </span>
+              <span class="text-xs text-[#A8B5AD] font-mono">Topic: Arrays &amp; Math</span>
+            </div>
+            <h4 class="cm-card-title text-[18px]">
+              Find Missing Number in Array
+            </h4>
+            <p class="cm-body text-[#A8B5AD] leading-relaxed">
+              Given an array of <code>n</code> distinct integers in range <code>[0, n]</code>, return the missing number with optimal O(N) time and O(1) space.
+            </p>
+          </div>
+
+          <div class="flex-shrink-0 self-start sm:self-auto">
+            <button onclick="openProblemModal(1)" class="cm-btn-primary">
+              <i data-lucide="terminal" class="w-4 h-4"></i> Solve Challenge
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Placement Preparation Progress (5-Pillar Gauge) -->
+        <div class="cm-card space-y-4 p-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-[#223129]">
+            <div>
+              <h3 class="cm-section-title">Placement Preparation Progress</h3>
+              <p class="cm-supporting text-[#A8B5AD]">Continuous evaluation across the five evaluation areas tested by top tech companies</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-[#75857B]">Tier-1 Benchmark:</span>
+              <span class="text-[13px] font-bold font-mono text-[#77D0B8] bg-[#14201A] px-3 py-1 rounded border border-[#223129]">
+                88.5 / 100 Ready
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+            <div class="p-3.5 rounded-lg bg-[#14201A] border border-[#223129] space-y-2">
+              <div class="flex justify-between text-[13.5px]">
+                <span class="text-[#F1F5F2] font-semibold">Programming</span>
+                <span class="font-mono text-[#77D0B8] font-bold">92%</span>
+              </div>
+              <div class="cm-progress-track">
+                <div class="cm-progress-bar" style="width: 92%"></div>
+              </div>
+              <div class="text-xs text-[#75857B] font-mono">Java, Python, C++</div>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-[#14201A] border border-[#223129] space-y-2">
+              <div class="flex justify-between text-[13.5px]">
+                <span class="text-[#F1F5F2] font-semibold">DSA Mastery</span>
+                <span class="font-mono text-[#77D0B8] font-bold">78%</span>
+              </div>
+              <div class="cm-progress-track">
+                <div class="cm-progress-bar" style="width: 78%"></div>
+              </div>
+              <div class="text-xs text-[#75857B] font-mono">284 solved</div>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-[#14201A] border border-[#223129] space-y-2">
+              <div class="flex justify-between text-[13.5px]">
+                <span class="text-[#F1F5F2] font-semibold">Core CS</span>
+                <span class="font-mono text-[#77D0B8] font-bold">84%</span>
+              </div>
+              <div class="cm-progress-track">
+                <div class="cm-progress-bar" style="width: 84%"></div>
+              </div>
+              <div class="text-xs text-[#75857B] font-mono">OS, DBMS, Networks</div>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-[#14201A] border border-[#223129] space-y-2">
+              <div class="flex justify-between text-[13.5px]">
+                <span class="text-[#F1F5F2] font-semibold">Interviews</span>
+                <span class="font-mono text-[#77D0B8] font-bold">70%</span>
+              </div>
+              <div class="cm-progress-track">
+                <div class="cm-progress-bar" style="width: 70%"></div>
+              </div>
+              <div class="text-xs text-[#75857B] font-mono">48 practiced</div>
+            </div>
+
+            <div class="p-3.5 rounded-lg bg-[#14201A] border border-[#223129] space-y-2">
+              <div class="flex justify-between text-[13.5px]">
+                <span class="text-[#F1F5F2] font-semibold">Projects</span>
+                <span class="font-mono text-[#77D0B8] font-bold">80%</span>
+              </div>
+              <div class="cm-progress-track">
+                <div class="cm-progress-bar" style="width: 80%"></div>
+              </div>
+              <div class="text-xs text-[#75857B] font-mono">2 deployed systems</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. FULL-WIDTH GITHUB-STYLE LEARNING ACTIVITY -->
+        <section class="learning-activity space-y-4">
+          
+          <!-- Heatmap Header -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3.5 border-b border-[#2A3931]">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="cm-section-title text-[#F1F5F2]">Learning Activity</h3>
+                <span class="text-xs text-[#75857B] font-mono px-2.5 py-0.5 rounded bg-[#14201A] border border-[#223129]">Full 52 Weeks</span>
+              </div>
+              <p class="cm-supporting text-[#A8B5AD] mt-0.5">Your coding activity and learning consistency over time.</p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4">
+              <!-- Total Contributions Counter -->
+              <div class="text-xs text-[#A8B5AD] flex items-center gap-1.5">
+                <span class="text-[#75857B]">Total:</span>
+                <strong id="heatmap-total-contributions" class="cm-stat-num text-[20px] text-[#F1F5F2]">1,248</strong>
+                <span class="text-[#75857B]">contributions</span>
+              </div>
+
+              <!-- Date Range Selector -->
+              <div class="inline-flex rounded-lg bg-[#14201A] p-0.5 border border-[#223129] text-xs">
+                <button onclick="setHeatmapRange('Last 12 Months', this)" class="heatmap-range-btn px-3 py-1.5 rounded-md text-xs font-medium bg-[#1B2822] text-[#77D0B8] border border-[#2B6555] transition-all">
+                  Last 12 Months
+                </button>
+                <button onclick="setHeatmapRange('2026', this)" class="heatmap-range-btn px-3 py-1.5 rounded-md text-xs font-medium text-[#75857B] border border-transparent hover:text-[#F1F5F2] transition-all">
+                  2026
+                </button>
+                <button onclick="setHeatmapRange('2025', this)" class="heatmap-range-btn px-3 py-1.5 rounded-md text-xs font-medium text-[#75857B] border border-transparent hover:text-[#F1F5F2] transition-all">
+                  2025
+                </button>
+              </div>
+
+              <!-- Less -> Color Scale -> More Legend -->
+              <div class="flex items-center gap-1.5 text-xs text-[#75857B]">
+                <span class="text-xs">Less</span>
+                <span class="w-3 h-3 rounded-sm bg-[#223129] border border-[#2A3931]" title="No activity"></span>
+                <span class="w-3 h-3 rounded-sm bg-[#254D3E]" title="Low activity"></span>
+                <span class="w-3 h-3 rounded-sm bg-[#33765B]" title="Moderate activity"></span>
+                <span class="w-3 h-3 rounded-sm bg-[#4B9F79]" title="High activity"></span>
+                <span class="w-3 h-3 rounded-sm bg-[#77D0B8]" title="Very high activity"></span>
+                <span class="text-xs">More</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Heatmap Contribution Graph (52 Columns x 7 Rows • Full Horizontal Width) -->
+          <div class="learning-activity-scroll-wrapper">
+            <div class="activity-graph-container">
+              
+              <!-- Month Labels (Aligned with 52 Columns across 100% width) -->
+              <div class="activity-months-wrapper">
+                <div class="activity-weekdays-spacer"></div>
+                <div id="heatmap-months-row" class="activity-months-grid"></div>
+              </div>
+
+              <div class="activity-body">
+                <!-- Weekday Labels (Mon, Wed, Fri aligned to 7 rows) -->
+                <div class="activity-weekdays">
+                  <span></span>
+                  <span>Mon</span>
+                  <span></span>
+                  <span>Wed</span>
+                  <span></span>
+                  <span>Fri</span>
+                  <span></span>
+                </div>
+
+                <!-- Heatmap 52-Column Responsive Full-Width Grid -->
+                <div id="dashboard-heatmap" class="activity-grid">
+                  <!-- Generated dynamically by scripts/app.js -->
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Sub-footer Summary -->
+          <div class="pt-3 border-t border-[#223129] flex flex-wrap items-center justify-between text-xs text-[#75857B] gap-3">
+            <div class="flex items-center gap-4">
+              <span>Current Streak: <strong class="text-[#77D0B8]">18 Days</strong></span>
+              <span>Longest Streak: <strong class="text-[#F1F5F2]">42 Days</strong></span>
+              <span>Yearly Consistency: <strong class="text-[#77D0B8]">89.4%</strong></span>
+            </div>
+            <div class="text-xs text-[#75857B]">
+              Activity tracks automated problem submissions, course lectures, and mock interviews.
+            </div>
+          </div>
+
+        </section>
+
+        <!-- 8. Dashboard Upcoming Schedule & Placement Deadlines (Two Columns) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          
+          <!-- Card A: Upcoming Schedule -->
+          <div class="cm-card space-y-3.5 p-5">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#223129]">
+              <h3 class="cm-section-title">Upcoming Workshops &amp; Classes</h3>
+              <span class="text-xs text-[#77D0B8] font-mono">This Week</span>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="p-3 rounded-lg bg-[#14201A] border border-[#223129] flex items-center justify-between">
+                <div>
+                  <div class="cm-card-title text-[14.5px]">Java OOP Concepts Review</div>
+                  <div class="text-xs text-[#75857B] mt-0.5">Today, 4:00 PM • Live Interactive Workshop</div>
+                </div>
+                <span class="cm-badge cm-badge-status">Today</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-[#14201A] border border-[#223129] flex items-center justify-between">
+                <div>
+                  <div class="cm-card-title text-[14.5px]">System Design: Redis Caching Architecture</div>
+                  <div class="text-xs text-[#75857B] mt-0.5">Tomorrow, 10:00 AM • Placement Masterclass</div>
+                </div>
+                <span class="text-xs text-[#75857B] font-mono px-2 py-0.5 rounded bg-[#101815] border border-[#223129]">Tomorrow</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-[#14201A] border border-[#223129] flex items-center justify-between">
+                <div>
+                  <div class="cm-card-title text-[14.5px]">Weekend Placement Mock Test (Amazon Pattern)</div>
+                  <div class="text-xs text-[#75857B] mt-0.5">Saturday, 11:00 AM • 90 Mins Proctored Simulation</div>
+                </div>
+                <span class="cm-badge cm-badge-easy">Assessment</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card B: Placement Deadlines -->
+          <div class="cm-card space-y-3.5 p-5">
+            <div class="flex items-center justify-between pb-2.5 border-b border-[#223129]">
+              <h3 class="cm-section-title">Placement Application Deadlines</h3>
+              <span class="text-xs text-[#DF8585] font-mono">Action Required</span>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="p-3 rounded-lg bg-[#14201A] border border-[#223129] flex items-center justify-between">
+                <div>
+                  <div class="cm-card-title text-[14.5px]">Amazon SDE-1 OA Simulation</div>
+                  <div class="text-xs text-[#75857B] mt-0.5">2 coding challenges + work simulation</div>
+                </div>
+                <span class="cm-badge cm-badge-medium">2 Days Left</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-[#14201A] border border-[#223129] flex items-center justify-between">
+                <div>
+                  <div class="cm-card-title text-[14.5px]">System Design Sprint: URL Shortener</div>
+                  <div class="text-xs text-[#75857B] mt-0.5">Submit architecture diagram &amp; RFC doc</div>
+                </div>
+                <span class="text-xs text-[#A8B5AD] font-mono px-2 py-0.5 rounded bg-[#101815] border border-[#223129]">5 Days Left</span>
+              </div>
+
+              <div class="p-3 rounded-lg bg-[#14201A] border border-[#223129] flex items-center justify-between">
+                <div>
+                  <div class="cm-card-title text-[14.5px]">Resume ATS Optimization &amp; Verification</div>
+                  <div class="text-xs text-[#75857B] mt-0.5">Submit PDF for Tier-1 engineering referral pool</div>
+                </div>
+                <span class="cm-badge cm-badge-status">Ready to Submit</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           VIEW 2: LEARNING PATHS (Clean Structured Roadmaps)
+           ===================================================================== -->
+      <div id="view-learning-paths" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Structured Learning Paths</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">
+            Follow industry-aligned curricula from computer science foundations to production software systems.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-1">
+          <button class="cm-filter-chip active">All Roadmaps</button>
+          <button class="cm-filter-chip">Full Stack</button>
+          <button class="cm-filter-chip">Backend</button>
+          <button class="cm-filter-chip">Frontend</button>
+          <button class="cm-filter-chip">DSA &amp; Competitive</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Path 1 -->
+          <div class="cm-card flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-status">Career Track</span>
+                <span class="text-xs font-mono text-[#D6A94F]">6 Months • 42 Modules</span>
+              </div>
+              <h3 onclick="openCourseDetail('full-stack')" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif">
+                Full Stack Web Developer &amp; Cloud Systems
+              </h3>
+              <p class="cm-supporting text-[#B7C8BE] mt-1.5 line-clamp-2">
+                From modern JavaScript and React to Node.js, PostgreSQL, Docker containers and cloud deployment.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3.5">
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#D6A94F] font-mono">React 19</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Node.js</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">PostgreSQL</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Docker</span>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-3 pt-3.5 border-t border-[#315B4C]">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-[#82958A]">Progress</span>
+                <span class="text-[#D6A94F] font-bold">35%</span>
+              </div>
+              <div class="cm-progress-track"><div class="cm-progress-bar" style="width: 35%"></div></div>
+              <button onclick="openCourseDetail('full-stack')" class="cm-btn-emerald-pill w-full text-sm justify-center">
+                Open Course Experience <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Path 2 -->
+          <div class="cm-card flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-status">Backend Track</span>
+                <span class="text-xs font-mono text-[#D6A94F]">5 Months • 38 Modules</span>
+              </div>
+              <h3 onclick="openCourseDetail('java-backend')" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif">
+                Java Backend &amp; Microservices Track
+              </h3>
+              <p class="cm-supporting text-[#B7C8BE] mt-1.5 line-clamp-2">
+                Master Java 17, Spring Boot, Spring Security, Hibernate ORM, Apache Kafka and distributed architectures.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3.5">
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#D6A94F] font-mono">Java 17</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#D6A94F] font-mono">Spring Boot</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Kafka</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Redis</span>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-3 pt-3.5 border-t border-[#315B4C]">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-[#82958A]">Progress</span>
+                <span class="text-[#D6A94F] font-bold">60%</span>
+              </div>
+              <div class="cm-progress-track"><div class="cm-progress-bar" style="width: 60%"></div></div>
+              <button onclick="openCourseDetail('java-backend')" class="cm-btn-emerald-pill w-full text-sm justify-center">
+                Open Course Experience <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Path 3 -->
+          <div class="cm-card flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-status">Algorithm Track</span>
+                <span class="text-xs font-mono text-[#D6A94F]">4 Months • 34 Modules</span>
+              </div>
+              <h3 onclick="openCourseDetail('dsa-mastery')" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif">
+                Data Structures &amp; Algorithms Placement Track
+              </h3>
+              <p class="cm-supporting text-[#B7C8BE] mt-1.5 line-clamp-2">
+                Systematic mastery across Two Pointers, Sliding Window, Trees, Graphs, Dynamic Programming, and Backtracking.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3.5">
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#D6A94F] font-mono">Arrays</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Trees</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Graphs</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">DP</span>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-3 pt-3.5 border-t border-[#315B4C]">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-[#82958A]">Progress</span>
+                <span class="text-[#D6A94F] font-bold">44%</span>
+              </div>
+              <div class="cm-progress-track"><div class="cm-progress-bar" style="width: 44%"></div></div>
+              <button onclick="openCourseDetail('dsa-mastery')" class="cm-btn-emerald-pill w-full text-sm justify-center">
+                Open Course Experience <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Path 4 -->
+          <div class="cm-card flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-colors">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-status">Frontend Track</span>
+                <span class="text-xs font-mono text-[#D6A94F]">4 Months • 28 Modules</span>
+              </div>
+              <h3 onclick="openCourseDetail('frontend-architecture')" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif">
+                Frontend Architecture &amp; React 19 Performance
+              </h3>
+              <p class="cm-supporting text-[#B7C8BE] mt-1.5 line-clamp-2">
+                Modern React, Next.js App Router, TypeScript, performance optimizations and state architecture.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3.5">
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#D6A94F] font-mono">React 19</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">TypeScript</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-[#003D30] border border-[#315B4C] text-[#B7C8BE] font-mono">Tailwind</span>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-3 pt-3.5 border-t border-[#315B4C]">
+              <div class="flex justify-between text-xs font-mono">
+                <span class="text-[#82958A]">Progress</span>
+                <span class="text-[#D6A94F] font-bold">62%</span>
+              </div>
+              <div class="cm-progress-track"><div class="cm-progress-bar" style="width: 62%"></div></div>
+              <button onclick="openCourseDetail('frontend-architecture')" class="cm-btn-emerald-pill w-full text-sm justify-center">
+                Open Course Experience <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 3: DSA PRACTICE HUB (Professional Coding Platform)
+           ===================================================================== -->
+      <div id="view-dsa" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="cm-page-title tracking-tight">DSA Practice Hub</h2>
+            <p class="cm-body text-[#A8B5AD] mt-1.5">
+              Practise coding problems, track your progress and master data structures &amp; algorithms.
+            </p>
+          </div>
+          <button onclick="openCourseDetail('dsa-mastery')" class="cm-btn-emerald-pill text-xs py-2 px-4 flex items-center gap-2 self-start sm:self-auto">
+            <i data-lucide="graduation-cap" class="w-4 h-4 text-[#D6A94F]"></i>
+            <span>Open DSA Course Curriculum</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <!-- 4 Stat Counters with 30px Numbers and Tabular Figures -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="cm-card flex items-center justify-between p-4">
+            <div>
+              <div class="cm-stat-num text-[#F1F5F2]">284</div>
+              <div class="cm-stat-label mt-0.5">Problems Solved</div>
+            </div>
+            <div class="cm-icon-box"><i data-lucide="code-2" class="w-5 h-5 text-[#83C9C5]"></i></div>
+          </div>
+
+          <div class="cm-card flex items-center justify-between p-4">
+            <div>
+              <div class="cm-stat-num text-[#77D0B8]">78.4%</div>
+              <div class="cm-stat-label mt-0.5">Acceptance Rate</div>
+            </div>
+            <div class="cm-icon-box"><i data-lucide="check-circle" class="w-5 h-5 text-[#77D0B8]"></i></div>
+          </div>
+
+          <div class="cm-card flex items-center justify-between p-4">
+            <div>
+              <div class="cm-stat-num text-[#E8B86A]">42</div>
+              <div class="cm-stat-label mt-0.5">Day Streak</div>
+            </div>
+            <div class="cm-icon-box"><i data-lucide="flame" class="w-5 h-5 text-[#E8B86A]"></i></div>
+          </div>
+
+          <div class="cm-card flex items-center justify-between p-4">
+            <div>
+              <div class="cm-stat-num text-[#83C9C5]">#1,420</div>
+              <div class="cm-stat-label mt-0.5">Global Ranking</div>
+            </div>
+            <div class="cm-icon-box"><i data-lucide="trophy" class="w-5 h-5 text-[#83C9C5]"></i></div>
+          </div>
+        </div>
+
+        <!-- Topic Chips -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1">
+          <button onclick="filterDsaTopic('All Problems', this)" class="cm-filter-chip active">All Problems</button>
+          <button onclick="filterDsaTopic('Arrays', this)" class="cm-filter-chip">Arrays</button>
+          <button onclick="filterDsaTopic('Strings', this)" class="cm-filter-chip">Strings</button>
+          <button onclick="filterDsaTopic('Stacks', this)" class="cm-filter-chip">Stacks &amp; Queues</button>
+          <button onclick="filterDsaTopic('Linked Lists', this)" class="cm-filter-chip">Linked Lists</button>
+          <button onclick="filterDsaTopic('Trees', this)" class="cm-filter-chip">Trees</button>
+          <button onclick="filterDsaTopic('Graphs', this)" class="cm-filter-chip">Graphs</button>
+          <button onclick="filterDsaTopic('Dynamic Programming', this)" class="cm-filter-chip">Dynamic Programming</button>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-3.5 p-3.5 rounded-lg bg-[#14201A] border border-[#223129]">
+          <div class="w-full sm:w-80 relative">
+            <i data-lucide="search" class="w-4 h-4 text-[#75857B] absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              placeholder="Filter by problem name or company..." 
+              class="cm-input pl-10 text-[13.5px] h-10"
+              oninput="handleDsaSearch(this.value)"
+            >
+          </div>
+
+          <div class="flex items-center gap-2.5">
+            <select onchange="handleDsaDifficulty(this.value)" class="h-10 px-3 rounded-lg bg-[#1B2822] border border-[#2A3931] text-[13.5px] text-[#F1F5F2] outline-none">
+              <option value="All">Difficulty: All</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="cm-card p-0 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="cm-table">
+              <thead>
+                <tr>
+                  <th class="w-12 text-center">Status</th>
+                  <th>Problem Title</th>
+                  <th>Difficulty</th>
+                  <th>Topic</th>
+                  <th>Acceptance</th>
+                  <th>Target Companies</th>
+                  <th class="text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="dsa-table-body">
+                <!-- Dynamically populated by app.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 4: INTERVIEW PREPARATION (Focused Technical Library)
+           ===================================================================== -->
+      <div id="view-interview-prep" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Technical Interview Preparation</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">
+            Structured technical interview questions, CS fundamentals, and system design topics.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-1 space-y-2">
+            <div class="text-xs font-semibold text-[#75857B] uppercase tracking-wider mb-2 font-mono">Topics</div>
+            
+            <div onclick="selectInterviewTopic('Java')" class="p-3 rounded-lg bg-[#1B2822] hover:bg-[#202F28] border border-[#2A3931] cursor-pointer flex items-center justify-between transition-colors">
+              <div>
+                <div class="text-[14px] font-semibold text-[#F1F5F2]">Java Core &amp; JVM</div>
+                <div class="text-xs text-[#75857B] mt-0.5">Memory model, Collections, GC</div>
+              </div>
+              <span class="text-xs font-mono text-[#77D0B8] font-bold">72 Qs</span>
+            </div>
+
+            <div onclick="selectInterviewTopic('OOP')" class="p-3 rounded-lg bg-[#14201A] hover:bg-[#1B2822] border border-[#223129] cursor-pointer flex items-center justify-between transition-colors">
+              <div>
+                <div class="text-[14px] font-semibold text-[#F1F5F2]">OOP &amp; Design Patterns</div>
+                <div class="text-xs text-[#75857B] mt-0.5">SOLID, Factory, Singleton</div>
+              </div>
+              <span class="text-xs font-mono text-[#77D0B8] font-bold">45 Qs</span>
+            </div>
+
+            <div onclick="selectInterviewTopic('DBMS')" class="p-3 rounded-lg bg-[#14201A] hover:bg-[#1B2822] border border-[#223129] cursor-pointer flex items-center justify-between transition-colors">
+              <div>
+                <div class="text-[14px] font-semibold text-[#F1F5F2]">DBMS &amp; SQL Querying</div>
+                <div class="text-xs text-[#75857B] mt-0.5">ACID, B-Trees, Indexing</div>
+              </div>
+              <span class="text-xs font-mono text-[#77D0B8] font-bold">60 Qs</span>
+            </div>
+
+            <div onclick="selectInterviewTopic('Operating Systems')" class="p-3 rounded-lg bg-[#14201A] hover:bg-[#1B2822] border border-[#223129] cursor-pointer flex items-center justify-between transition-colors">
+              <div>
+                <div class="text-[14px] font-semibold text-[#F1F5F2]">Operating Systems</div>
+                <div class="text-xs text-[#75857B] mt-0.5">Processes, Virtual Memory</div>
+              </div>
+              <span class="text-xs font-mono text-[#77D0B8] font-bold">54 Qs</span>
+            </div>
+
+            <div onclick="selectInterviewTopic('System Design')" class="p-3 rounded-lg bg-[#14201A] hover:bg-[#1B2822] border border-[#223129] cursor-pointer flex items-center justify-between transition-colors">
+              <div>
+                <div class="text-[14px] font-semibold text-[#F1F5F2]">System Design Basics</div>
+                <div class="text-xs text-[#75857B] mt-0.5">Load Balancers, Caching</div>
+              </div>
+              <span class="text-xs font-mono text-[#77D0B8] font-bold">38 Qs</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2">
+            <div class="cm-card space-y-4 p-5" id="interview-question-container">
+              <!-- Dynamically populated by app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 5: CODING CHALLENGES
+           ===================================================================== -->
+      <div id="view-coding-challenges" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Coding Challenges</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">
+            Timed assessments, company online tests, and weekly leaderboard contests.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div class="cm-card space-y-3 p-5">
+            <div class="flex items-center justify-between">
+              <span class="cm-badge cm-badge-status">Weekly Contest #48</span>
+              <span class="text-xs text-[#E8B86A] font-mono flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-4 h-4"></i> Live in 1d 4h
+              </span>
+            </div>
+            <h3 class="cm-card-title text-[17px]">Weekend Placement Simulation Contest</h3>
+            <p class="cm-supporting text-[#A8B5AD]">4 questions modeled after real screening tests from Morgan Stanley and Atlassian.</p>
+            <div class="pt-2">
+              <button onclick="showToast('Registered for Weekend Contest #48! 🗓️')" class="cm-btn-primary text-sm">Register</button>
+            </div>
+          </div>
+
+          <div class="cm-card space-y-3 p-5">
+            <div class="flex items-center justify-between">
+              <span class="cm-badge cm-badge-easy">Mock Assessment</span>
+              <span class="text-xs text-[#63C995] font-mono">Available Anytime</span>
+            </div>
+            <h3 class="cm-card-title text-[17px]">Amazon SDE-1 OA Simulation</h3>
+            <p class="cm-supporting text-[#A8B5AD]">90 minutes timed assessment: 2 coding questions + work simulation round.</p>
+            <div class="pt-2">
+              <button onclick="openProblemModal(1)" class="cm-btn-secondary text-sm">Start Mock OA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 6: COURSES & RESOURCES (Curated Library)
+           ===================================================================== -->
+      <div id="view-resources" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Courses &amp; Curated Resources</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">Documentation, interview cheatsheets and reference materials.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Resource 1: Warm Ivory Card -->
+          <div class="cm-card-ivory flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="cm-badge cm-badge-status">Cheatsheet</span>
+                  <span class="text-[11px] font-mono text-[#075B45] bg-[#003D30]/10 px-2 py-0.5 rounded border border-[#075B45]/20 font-semibold">CodeMentor Guide</span>
+                </div>
+                <button onclick="toggleBookmark(1, this)" class="text-[#D6A94F] hover:scale-110 transition-transform">
+                  <i data-lucide="bookmark" class="w-4 h-4 fill-current"></i>
+                </button>
+              </div>
+              <h4 onclick="openResourceDetail(1)" class="cm-card-title group-hover:text-[#075B45] transition-colors cursor-pointer font-serif text-[17.5px] text-[#18251F]">
+                DSA Time &amp; Space Complexity Blueprint
+              </h4>
+              <p class="text-xs text-[#556E62] mt-2 line-clamp-2 leading-relaxed">
+                One-sheet cheat reference of asymptotic complexities: quicksort vs mergesort, hash table amortized bounds, heap operations, and graph search space.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">Big-O</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">Data Structures</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">Algorithms</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#E6D5B7] flex items-center justify-between text-xs text-[#556E62]">
+              <span class="font-mono flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 8 mins read</span>
+              <button onclick="openResourceDetail(1)" class="text-[#075B45] font-semibold hover:underline text-xs flex items-center gap-1">
+                Read Study Guide <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resource 2: Deep Emerald Card -->
+          <div class="cm-card flex flex-col justify-between group p-5 bg-[#003D30] border-[#184D3F] hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="cm-badge cm-badge-status">System Design</span>
+                  <span class="text-[11px] font-mono text-[#D6A94F] bg-[#05271F] px-2 py-0.5 rounded border border-[#184D3F]">CodeMentor Guide</span>
+                </div>
+                <button onclick="toggleBookmark(2, this)" class="text-[#82958A] hover:text-[#D6A94F] hover:scale-110 transition-all">
+                  <i data-lucide="bookmark" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <h4 onclick="openResourceDetail(2)" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif text-[17.5px] text-[#F7F2E7]">
+                Microservices Architecture Primer
+              </h4>
+              <p class="cm-supporting text-[#B7C8BE] mt-2 line-clamp-2 leading-relaxed">
+                API Gateways, service discovery, database-per-service isolation, asynchronous event streaming with Kafka, and the Saga pattern for distributed transactions.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A] font-mono">API Gateway</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A] font-mono">Kafka</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A] font-mono">Saga</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#184D3F] flex items-center justify-between text-xs text-[#82958A]">
+              <span class="font-mono flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 16 mins read</span>
+              <button onclick="openResourceDetail(2)" class="text-[#D6A94F] font-semibold hover:underline text-xs flex items-center gap-1">
+                Read Study Guide <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resource 3: Warm Ivory Card -->
+          <div class="cm-card-ivory flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="cm-badge cm-badge-easy">Database</span>
+                  <span class="text-[11px] font-mono text-[#075B45] bg-[#003D30]/10 px-2 py-0.5 rounded border border-[#075B45]/20 font-semibold">Curated Practice</span>
+                </div>
+                <button onclick="toggleBookmark(3, this)" class="text-[#D6A94F] hover:scale-110 transition-transform">
+                  <i data-lucide="bookmark" class="w-4 h-4 fill-current"></i>
+                </button>
+              </div>
+              <h4 onclick="openResourceDetail(3)" class="cm-card-title group-hover:text-[#075B45] transition-colors cursor-pointer font-serif text-[17.5px] text-[#18251F]">
+                Top 100 SQL Queries for Tech Interviews
+              </h4>
+              <p class="text-xs text-[#556E62] mt-2 line-clamp-2 leading-relaxed">
+                N-th highest salary with DENSE_RANK(), self-joins for hierarchical trees, Common Table Expressions (CTEs), and window functions.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">Window Functions</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">CTEs</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">DENSE_RANK</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#E6D5B7] flex items-center justify-between text-xs text-[#556E62]">
+              <span class="font-mono flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 22 mins read</span>
+              <button onclick="openResourceDetail(3)" class="text-[#075B45] font-semibold hover:underline text-xs flex items-center gap-1">
+                Read Study Guide <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resource 4: Deep Dark Forest Card -->
+          <div class="cm-card flex flex-col justify-between group p-5 bg-[#05271F] border-[#184D3F] hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="cm-badge cm-badge-hard">Official Docs</span>
+                  <span class="text-[11px] font-mono text-[#63A982] bg-[#003D30] px-2 py-0.5 rounded border border-[#184D3F] flex items-center gap-1">
+                    Oracle OpenJDK <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </span>
+                </div>
+                <button onclick="toggleBookmark(4, this)" class="text-[#82958A] hover:text-[#D6A94F] hover:scale-110 transition-all">
+                  <i data-lucide="bookmark" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <h4 onclick="openResourceDetail(4)" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif text-[17.5px] text-[#F7F2E7]">
+                Java 17 LTS Language Specification &amp; API Docs
+              </h4>
+              <p class="cm-supporting text-[#B7C8BE] mt-2 line-clamp-2 leading-relaxed">
+                Sealed classes, records, pattern matching for switch, text blocks, and the modern JVM memory model in production runtime.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#003D30] border border-[#184D3F] text-[#82958A] font-mono">Java 17 LTS</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#003D30] border border-[#184D3F] text-[#82958A] font-mono">JVM</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#003D30] border border-[#184D3F] text-[#82958A] font-mono">Records</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#184D3F] flex items-center justify-between text-xs text-[#82958A]">
+              <span class="font-mono flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 30 mins deep dive</span>
+              <button onclick="openResourceDetail(4)" class="text-[#D6A94F] font-semibold hover:underline text-xs flex items-center gap-1">
+                Read Study Guide <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resource 5: Warm Ivory Card -->
+          <div class="cm-card-ivory flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="cm-badge cm-badge-hard">Official Docs</span>
+                  <span class="text-[11px] font-mono text-[#075B45] bg-[#003D30]/10 px-2 py-0.5 rounded border border-[#075B45]/20 font-semibold flex items-center gap-1">
+                    Spring Team <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </span>
+                </div>
+                <button onclick="toggleBookmark(5, this)" class="text-[#82958A] hover:text-[#075B45] hover:scale-110 transition-all">
+                  <i data-lucide="bookmark" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <h4 onclick="openResourceDetail(5)" class="cm-card-title group-hover:text-[#075B45] transition-colors cursor-pointer font-serif text-[17.5px] text-[#18251F]">
+                Spring Boot 3.2 Reference Documentation &amp; Guides
+              </h4>
+              <p class="text-xs text-[#556E62] mt-2 line-clamp-2 leading-relaxed">
+                Auto-configuration internals, GraalVM native image compilation, Spring Security 6 filter chains, and Micrometer observability.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">Spring Boot 3</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">Security 6</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono">GraalVM</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#E6D5B7] flex items-center justify-between text-xs text-[#556E62]">
+              <span class="font-mono flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 25 mins deep dive</span>
+              <button onclick="openResourceDetail(5)" class="text-[#075B45] font-semibold hover:underline text-xs flex items-center gap-1">
+                Read Study Guide <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Resource 6: Deep Emerald Card -->
+          <div class="cm-card flex flex-col justify-between group p-5 bg-[#003D30] border-[#184D3F] hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="cm-badge cm-badge-status">Architecture</span>
+                  <span class="text-[11px] font-mono text-[#D6A94F] bg-[#05271F] px-2 py-0.5 rounded border border-[#184D3F] flex items-center gap-1">
+                    Donne Martin <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </span>
+                </div>
+                <button onclick="toggleBookmark(6, this)" class="text-[#D6A94F] hover:scale-110 transition-transform">
+                  <i data-lucide="bookmark" class="w-4 h-4 fill-current"></i>
+                </button>
+              </div>
+              <h4 onclick="openResourceDetail(6)" class="cm-card-title group-hover:text-[#D6A94F] transition-colors cursor-pointer font-serif text-[17.5px] text-[#F7F2E7]">
+                The System Design Primer (Interactive Summary)
+              </h4>
+              <p class="cm-supporting text-[#B7C8BE] mt-2 line-clamp-2 leading-relaxed">
+                Scalability trade-offs, CAP theorem, consistent hashing, load balancer algorithms, caching tiers (Redis/Memcached), and SQL vs NoSQL.
+              </p>
+              <div class="flex flex-wrap gap-1.5 mt-3">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A] font-mono">CAP Theorem</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A] font-mono">Consistent Hashing</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A] font-mono">Caching</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#184D3F] flex items-center justify-between text-xs text-[#82958A]">
+              <span class="font-mono flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 35 mins deep dive</span>
+              <button onclick="openResourceDetail(6)" class="text-[#D6A94F] font-semibold hover:underline text-xs flex items-center gap-1">
+                Read Study Guide <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 7: PROJECTS (Build Real Projects)
+           ===================================================================== -->
+      <div id="view-projects" class="cm-view-container hidden space-y-5 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Real-World Projects</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">Turn theoretical concepts into portfolio-worthy distributed software systems.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Project 1: Deep Emerald Card -->
+          <div class="cm-card flex flex-col justify-between group p-5 bg-[#003D30] border-[#184D3F] hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-easy">Beginner</span>
+                <span class="text-xs font-mono text-[#D6A94F]">~10 hours</span>
+              </div>
+              <h4 class="cm-card-title text-[17px] font-serif group-hover:text-[#D6A94F] transition-colors text-[#F7F2E7]">Weather &amp; Air Quality Dashboard</h4>
+              <p class="cm-supporting text-[#B7C8BE] mt-1.5 leading-relaxed">Consuming external REST APIs with geolocation and local storage caching.</p>
+              <div class="flex gap-2 mt-3.5">
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A]">React 19</span>
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#05271F] border border-[#184D3F] text-[#82958A]">Tailwind</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#184D3F]">
+              <button onclick="openProjectModal('Weather Dashboard', 'Beginner', '~10 hours')" class="cm-btn-secondary w-full text-xs h-9 justify-center">
+                View Milestones
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 2: Warm Ivory Card (Flagship Highlight) -->
+          <div class="cm-card-ivory flex flex-col justify-between group p-5 hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-medium">Intermediate</span>
+                <span class="text-xs font-mono text-[#075B45] font-semibold">~35 hours</span>
+              </div>
+              <h4 class="cm-card-title text-[17px] font-serif group-hover:text-[#075B45] transition-colors text-[#18251F]">Real-Time Collaborative Code Editor</h4>
+              <p class="text-xs text-[#556E62] mt-1.5 leading-relaxed">Multiplayer editing engine with WebSockets, syntax highlighting, and cursor tracking.</p>
+              <div class="flex gap-2 mt-3.5">
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F]">Node.js</span>
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F]">Socket.io</span>
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F]">Monaco</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#E6D5B7]">
+              <button onclick="openProjectModal('Real-Time Code Editor', 'Intermediate', '~35 hours')" class="cm-btn-emerald-pill w-full text-xs h-9 justify-center">
+                <span>View Milestones</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Project 3: Deep Forest Dark Card -->
+          <div class="cm-card flex flex-col justify-between group p-5 bg-[#05271F] border-[#184D3F] hover:border-[#D6A94F] transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="cm-badge cm-badge-hard">Advanced</span>
+                <span class="text-xs font-mono text-[#E7C77E]">~60 hours</span>
+              </div>
+              <h4 class="cm-card-title text-[17px] font-serif group-hover:text-[#D6A94F] transition-colors text-[#F7F2E7]">Distributed Event-Driven Order Engine</h4>
+              <p class="cm-supporting text-[#B7C8BE] mt-1.5 leading-relaxed">High-throughput microservices using Apache Kafka event streams and Redis cache.</p>
+              <div class="flex gap-2 mt-3.5">
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#003D30] border border-[#184D3F] text-[#82958A]">Spring Boot</span>
+                <span class="text-xs font-mono px-2.5 py-1 rounded bg-[#003D30] border border-[#184D3F] text-[#82958A]">Kafka</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3.5 border-t border-[#184D3F]">
+              <button onclick="openProjectModal('Distributed Order Engine', 'Advanced', '~60 hours')" class="cm-btn-secondary w-full text-xs h-9 justify-center">
+                View Milestones
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 8: PROGRESS & ANALYTICS
+           ===================================================================== -->
+      <div id="view-analytics" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Progress &amp; Analytics</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">Educational progress metrics and study consistency overview.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Metric 1: Warm Ivory Card -->
+          <div class="cm-card-ivory p-4 flex flex-col justify-between">
+            <div class="text-xs font-mono uppercase tracking-wider text-[#556E62] font-semibold">Total Study Time</div>
+            <div class="text-2xl font-bold font-mono text-[#18251F] mt-1">142.5 <span class="text-xs font-normal text-[#556E62]">hrs</span></div>
+            <div class="text-xs text-[#075B45] font-mono mt-1 font-semibold">+12% vs last week</div>
+          </div>
+
+          <!-- Metric 2: Deep Emerald Card -->
+          <div class="cm-card p-4 flex flex-col justify-between bg-[#003D30] border-[#184D3F]">
+            <div class="text-xs font-mono uppercase tracking-wider text-[#82958A] font-semibold">Placement Readiness</div>
+            <div class="text-2xl font-bold font-mono text-[#E7C77E] mt-1">88.5%</div>
+            <div class="text-xs text-[#D6A94F] font-mono mt-1">Tier-1 Company Ready</div>
+          </div>
+
+          <!-- Metric 3: Warm Ivory Card -->
+          <div class="cm-card-ivory p-4 flex flex-col justify-between">
+            <div class="text-xs font-mono uppercase tracking-wider text-[#556E62] font-semibold">Current Streak</div>
+            <div class="text-2xl font-bold font-mono text-[#18251F] mt-1">18 <span class="text-xs font-normal text-[#556E62]">Days</span></div>
+            <div class="text-xs text-[#D6A94F] font-mono mt-1 font-semibold">Best: 42 Days</div>
+          </div>
+
+          <!-- Metric 4: Deep Forest Dark Card -->
+          <div class="cm-card p-4 flex flex-col justify-between bg-[#05271F] border-[#184D3F]">
+            <div class="text-xs font-mono uppercase tracking-wider text-[#82958A] font-semibold">Global Percentile</div>
+            <div class="text-2xl font-bold font-mono text-[#F7F2E7] mt-1">Top 4.8%</div>
+            <div class="text-xs text-[#82958A] font-mono mt-1">Rank #1,420</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div class="cm-card space-y-3.5 p-5 bg-[#003D30] border-[#184D3F]">
+            <h4 class="text-base font-bold text-[#F7F2E7] font-serif">Weekly Study Hours</h4>
+            <div class="h-44 flex items-end justify-between px-4 pb-2 border-b border-[#184D3F]">
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-[#05271F] border border-[#184D3F] rounded-t" style="height: 60px"></div><span class="text-xs text-[#82958A] font-mono">Mon</span></div>
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-[#075B45] rounded-t" style="height: 110px"></div><span class="text-xs text-[#82958A] font-mono">Tue</span></div>
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-[#05271F] border border-[#184D3F] rounded-t" style="height: 80px"></div><span class="text-xs text-[#82958A] font-mono">Wed</span></div>
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-[#075B45] rounded-t" style="height: 125px"></div><span class="text-xs text-[#82958A] font-mono">Thu</span></div>
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-gradient-to-t from-[#075B45] to-[#D6A94F] rounded-t shadow-md" style="height: 145px"></div><span class="text-xs text-[#E7C77E] font-bold font-mono">Fri</span></div>
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-[#075B45] rounded-t" style="height: 95px"></div><span class="text-xs text-[#82958A] font-mono">Sat</span></div>
+              <div class="flex flex-col items-center gap-2"><div class="w-7 bg-[#05271F] border border-[#184D3F] rounded-t" style="height: 50px"></div><span class="text-xs text-[#82958A] font-mono">Sun</span></div>
+            </div>
+            <div class="flex justify-between text-xs text-[#82958A] font-mono">
+              <span>Daily Avg: <strong class="text-[#F7F2E7]">3.9 hrs</strong></span>
+              <span>Total Week: <strong class="text-[#D6A94F]">27.4 hrs</strong></span>
+            </div>
+          </div>
+
+          <div class="cm-card space-y-3.5 p-5">
+            <h4 class="cm-section-title">DSA Difficulty Distribution (284 Solved)</h4>
+            <div class="space-y-4 pt-1">
+              <div>
+                <div class="flex justify-between text-xs mb-1.5">
+                  <span class="text-[#63C995] font-semibold text-[13.5px]">Easy: 142 Solved</span>
+                  <span class="font-mono text-[#75857B]">71%</span>
+                </div>
+                <div class="cm-progress-track h-2"><div class="h-full bg-[#63C995] rounded-full" style="width: 71%"></div></div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs mb-1.5">
+                  <span class="text-[#E8B86A] font-semibold text-[13.5px]">Medium: 118 Solved</span>
+                  <span class="font-mono text-[#75857B]">47.2%</span>
+                </div>
+                <div class="cm-progress-track h-2"><div class="h-full bg-[#E8B86A] rounded-full" style="width: 47.2%"></div></div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs mb-1.5">
+                  <span class="text-[#DF8585] font-semibold text-[13.5px]">Hard: 24 Solved</span>
+                  <span class="font-mono text-[#75857B]">30%</span>
+                </div>
+                <div class="cm-progress-track h-2"><div class="h-full bg-[#DF8585] rounded-full" style="width: 30%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 9: BOOKMARKS
+           ===================================================================== -->
+      <div id="view-bookmarks" class="cm-view-container hidden space-y-6 max-w-[1400px]">
+        <div>
+          <h2 class="cm-page-title tracking-tight">Saved Bookmarks</h2>
+          <p class="cm-body text-[#A8B5AD] mt-1.5">High-yield revision materials and guides bookmarked for study.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="cm-card p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3.5">
+              <div class="cm-icon-box"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+              <div>
+                <div class="cm-card-title text-[15px]">DSA Time &amp; Space Complexity Blueprint</div>
+                <div class="text-xs text-[#75857B] font-mono mt-0.5">Cheatsheet</div>
+              </div>
+            </div>
+            <button class="text-sm text-[#77D0B8] hover:underline font-medium">Review &rarr;</button>
+          </div>
+
+          <div class="cm-card p-4 flex items-center justify-between">
+            <div class="flex items-center gap-3.5">
+              <div class="cm-icon-box"><i data-lucide="help-circle" class="w-5 h-5"></i></div>
+              <div>
+                <div class="cm-card-title text-[15px]">HashMap Collision Resolution in Java 8</div>
+                <div class="text-xs text-[#75857B] font-mono mt-0.5">Interview Question</div>
+              </div>
+            </div>
+            <button class="text-sm text-[#77D0B8] hover:underline font-medium">Review &rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 10: SETTINGS
+           ===================================================================== -->
+      <div id="view-settings" class="cm-view-container hidden space-y-6 max-w-[1000px]">
+        <div>
+          <h2 class="text-2xl font-serif font-bold text-[#F7F2E7] tracking-tight">Account &amp; Placement Profile</h2>
+          <p class="cm-body text-[#B7C8BE] mt-1">Manage target dream companies, graduation batch, and drive notifications.</p>
+        </div>
+
+        <div class="cm-card space-y-6 p-7 bg-[#003D30] border-[#184D3F]">
+          <div class="flex items-center gap-4 pb-5 border-b border-[#184D3F]">
+            <div class="w-14 h-14 rounded-full bg-[#05271F] border-2 border-[#D6A94F] flex items-center justify-center font-bold text-lg text-[#F7F2E7]">
+              SG
+            </div>
+            <div>
+              <h3 class="text-xl font-serif font-bold text-[#F7F2E7]">Sweta Gupta</h3>
+              <p class="text-xs text-[#B7C8BE] mt-0.5">B.Tech Computer Science &amp; Engineering | Graduation: 2027</p>
+              <div class="text-xs text-[#E7C77E] font-mono mt-1 font-semibold">ID: CM-883419 • Premium Student Plan</div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="text-sm font-semibold text-[#F7F2E7]">Target Placement Drives</h4>
+            <div class="flex flex-wrap gap-2.5">
+              <span class="px-3 py-1.5 rounded-full bg-[#05271F] text-[#E7C77E] border border-[#D6A94F] text-xs font-medium flex items-center gap-1.5 font-mono">
+                Google <i data-lucide="check" class="w-3.5 h-3.5 text-[#63A982]"></i>
+              </span>
+              <span class="px-3 py-1.5 rounded-full bg-[#05271F] text-[#E7C77E] border border-[#D6A94F] text-xs font-medium flex items-center gap-1.5 font-mono">
+                Microsoft <i data-lucide="check" class="w-3.5 h-3.5 text-[#63A982]"></i>
+              </span>
+              <span class="px-3 py-1.5 rounded-full bg-[#05271F] text-[#E7C77E] border border-[#D6A94F] text-xs font-medium flex items-center gap-1.5 font-mono">
+                Amazon <i data-lucide="check" class="w-3.5 h-3.5 text-[#63A982]"></i>
+              </span>
+              <span class="px-3 py-1.5 rounded-full bg-[#05271F] text-[#B7C8BE] border border-[#184D3F] text-xs hover:border-[#D6A94F] cursor-pointer font-mono">
+                + Add Company
+              </span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-[#184D3F] flex justify-end">
+            <button onclick="showToast('Profile preferences saved! ✅')" class="cm-btn-emerald-pill text-xs h-9 px-6">
+              <span>Save Preferences</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================================
+           VIEW 11: STUDENT PROFILE & PORTFOLIO
+           ===================================================================== -->
+      <div id="view-profile" class="cm-view-container hidden space-y-7 max-w-[1300px]">
+        
+        <!-- ===================================================================
+             A. PROFILE INTRODUCTION: DEEP EMERALD PROFILE BANNER
+             =================================================================== -->
+        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#003D30] via-[#075B45] to-[#05271F] border border-[#184D3F] p-7 md:p-8 shadow-xl">
+          <!-- Subtle Decorative Seam Line -->
+          <div class="absolute top-0 right-0 w-96 h-96 bg-radial-gradient from-[rgba(214,169,79,0.08)] to-transparent pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-6">
+              <!-- Avatar Circle with Ivory / Gold Rim -->
+              <div class="w-20 h-20 rounded-full bg-[#05271F] border-2 border-[#D6A94F] flex items-center justify-center font-serif font-bold text-2xl text-[#F7F2E7] shadow-xl flex-shrink-0">
+                SG
+              </div>
+              
+              <div class="space-y-1.5">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h1 class="text-3xl md:text-4xl font-serif font-bold text-[#F7F2E7] tracking-tight">
+                    Sweta Gupta
+                  </h1>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#D6A94F]/15 border border-[#D6A94F] text-[#E7C77E] font-mono text-xs font-semibold">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#D6A94F]"></i> Verified Student
+                  </span>
+                </div>
+
+                <p class="text-[14.5px] text-[#B7C8BE]">
+                  B.Tech Computer Science &amp; Engineering • National Institute of Technology
+                </p>
+
+                <div class="flex flex-wrap items-center gap-3 text-xs font-mono text-[#82958A] pt-1">
+                  <span class="text-[#F7F2E7]">Class of 2027</span>
+                  <span>•</span>
+                  <span class="text-[#E7C77E] font-semibold">Placement Ready (87/100)</span>
+                  <span>•</span>
+                  <span class="text-[#B7C8BE]">Global Ranking: #412</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 flex-shrink-0 pt-2 md:pt-0">
+              <button onclick="showToast('Verified Student Profile PDF generated! 📄')" class="cm-btn-secondary text-xs h-9 px-4">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export Portfolio
+              </button>
+              <button onclick="showToast('Portfolio link copied to clipboard! 🔗')" class="cm-btn-primary text-xs h-9 px-5">
+                <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Share Profile
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             B. ACHIEVEMENT STATISTICS: MIXTURE OF WARM IVORY & DEEP DARK CARDS
+             (Eliminates the "four identical green rectangles" visual flaw)
+             =================================================================== -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Card 1: WARM IVORY CARD (Contrast Focus) -->
+          <div class="cm-card-ivory flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11.5px] font-mono uppercase tracking-wider text-[#556E62] font-semibold">DSA Solved</span>
+                <span class="w-6 h-6 rounded-md bg-[#003D30]/10 flex items-center justify-center text-[#075B45]">
+                  <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+                </span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-[#18251F] mt-2 tracking-tight">
+                284 <span class="text-sm font-normal text-[#556E62]">/ 450</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#E6D5B7] flex items-center justify-between text-xs">
+              <span class="inline-flex items-center gap-1 font-semibold text-[#075B45]">
+                <i data-lucide="trending-up" class="w-3 h-3"></i> Top 6% in Batch
+              </span>
+              <span class="text-[#7A8E82] font-mono text-[11px]">84 Hard Solved</span>
+            </div>
+          </div>
+
+          <!-- Card 2: DEEP EMERALD CARD -->
+          <div class="cm-card flex flex-col justify-between bg-[#003D30] border-[#184D3F]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11.5px] font-mono uppercase tracking-wider text-[#82958A] font-semibold">Mock Interviews</span>
+                <span class="w-6 h-6 rounded-md bg-[#D6A94F]/15 flex items-center justify-center text-[#D6A94F]">
+                  <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+                </span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-[#F7F2E7] mt-2 tracking-tight">
+                14 <span class="text-sm font-normal text-[#B7C8BE]">Completed</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#184D3F] flex items-center justify-between text-xs">
+              <span class="text-[#E7C77E] font-semibold">92% Pass Rating</span>
+              <span class="text-[#82958A] font-mono text-[11px]">3 Scheduled</span>
+            </div>
+          </div>
+
+          <!-- Card 3: WARM IVORY CARD (Contrast Focus) -->
+          <div class="cm-card-ivory flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11.5px] font-mono uppercase tracking-wider text-[#556E62] font-semibold">Resume ATS Score</span>
+                <span class="w-6 h-6 rounded-md bg-[#003D30]/10 flex items-center justify-center text-[#075B45]">
+                  <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                </span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-[#18251F] mt-2 tracking-tight">
+                92 <span class="text-sm font-normal text-[#556E62]">/ 100</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#E6D5B7] flex items-center justify-between text-xs">
+              <span class="inline-flex items-center gap-1 font-semibold text-[#075B45]">
+                <i data-lucide="check-circle" class="w-3 h-3"></i> FAANG Keyword Ready
+              </span>
+              <span class="text-[#7A8E82] font-mono text-[11px]">v4 Verified</span>
+            </div>
+          </div>
+
+          <!-- Card 4: DEEP FOREST DARK CARD WITH GOLD ACCENT -->
+          <div class="cm-card flex flex-col justify-between bg-[#05271F] border-[#184D3F]">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-[11.5px] font-mono uppercase tracking-wider text-[#82958A] font-semibold">Active Streak</span>
+                <span class="w-6 h-6 rounded-md bg-[#D6A94F]/20 flex items-center justify-center text-[#D6A94F]">
+                  <i data-lucide="flame" class="w-3.5 h-3.5 fill-current"></i>
+                </span>
+              </div>
+              <div class="text-3xl font-bold font-mono text-[#D6A94F] mt-2 tracking-tight">
+                18 <span class="text-sm font-normal text-[#B7C8BE]">Days</span>
+              </div>
+            </div>
+            <div class="mt-3 pt-2.5 border-t border-[#184D3F] flex items-center justify-between text-xs text-[#82958A]">
+              <span>Best Streak: <strong class="text-[#F7F2E7]">42 Days</strong></span>
+              <span class="text-[#63A982] font-mono text-[11px]">Active Today</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             TWO COLUMN DEEP DIVE: COMPETENCIES (DARK) & PLACEMENT PROFILE (IVORY)
+             =================================================================== -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          
+          <!-- =================================================================
+               C. TECHNICAL COMPETENCIES: RESTRAINED PROGRESS & MASTERIES
+               ================================================================= -->
+          <div class="cm-card p-6 space-y-5 bg-[#003D30] border-[#184D3F]">
+            <div class="flex items-center justify-between pb-3.5 border-b border-[#184D3F]">
+              <div>
+                <h3 class="text-lg font-bold text-[#F7F2E7] font-serif">Verified Technical Competencies</h3>
+                <p class="text-xs text-[#82958A] mt-0.5">Benchmarked against Tier-1 SDE interview rubrics</p>
+              </div>
+              <span class="text-xs font-mono text-[#D6A94F] bg-[#05271F] px-2.5 py-1 rounded-full border border-[#184D3F]">
+                5 Verified
+              </span>
+            </div>
+
+            <div class="space-y-4">
+              <!-- Skill 1 -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+                  <span class="text-[#F7F2E7]">Java 17 &amp; JVM Memory Architecture</span>
+                  <span class="text-[#E7C77E] font-mono">92% Mastery</span>
+                </div>
+                <div class="h-2 w-full bg-[#05271F] rounded-full overflow-hidden p-0.5 border border-[#184D3F]">
+                  <div class="h-full bg-gradient-to-r from-[#075B45] to-[#D6A94F] rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+
+              <!-- Skill 2 -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+                  <span class="text-[#F7F2E7]">Data Structures &amp; Algorithms</span>
+                  <span class="text-[#E7C77E] font-mono">Rating: 1840 (84%)</span>
+                </div>
+                <div class="h-2 w-full bg-[#05271F] rounded-full overflow-hidden p-0.5 border border-[#184D3F]">
+                  <div class="h-full bg-gradient-to-r from-[#075B45] to-[#2B7861] rounded-full" style="width: 84%"></div>
+                </div>
+              </div>
+
+              <!-- Skill 3 -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+                  <span class="text-[#F7F2E7]">Spring Boot 3 &amp; Microservices Architecture</span>
+                  <span class="text-[#E7C77E] font-mono">85% Mastery</span>
+                </div>
+                <div class="h-2 w-full bg-[#05271F] rounded-full overflow-hidden p-0.5 border border-[#184D3F]">
+                  <div class="h-full bg-gradient-to-r from-[#075B45] to-[#63A982] rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+
+              <!-- Skill 4 -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 font-medium">
+                  <span class="text-[#F7F2E7]">PostgreSQL, ACID, Concurrency &amp; Indexing</span>
+                  <span class="text-[#E7C77E] font-mono">88% Mastery</span>
+                </div>
+                <div class="h-2 w-full bg-[#05271F] rounded-full overflow-hidden p-0.5 border border-[#184D3F]">
+                  <div class="h-full bg-gradient-to-r from-[#075B45] to-[#D6A94F] rounded-full" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Earned Badges -->
+            <div class="pt-4 border-t border-[#184D3F]">
+              <div class="text-[11px] font-mono uppercase tracking-wider text-[#82958A] mb-3">Earned Platform Credentials</div>
+              <div class="flex flex-wrap gap-2.5">
+                <span class="px-3 py-1.5 rounded-lg bg-[#05271F] border border-[#184D3F] text-xs text-[#E7C77E] font-mono flex items-center gap-2">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-[#D6A94F]"></i> DSA 250+ Master
+                </span>
+                <span class="px-3 py-1.5 rounded-lg bg-[#05271F] border border-[#184D3F] text-xs text-[#E7C77E] font-mono flex items-center gap-2">
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#63A982]"></i> Spring Boot Certified
+                </span>
+                <span class="px-3 py-1.5 rounded-lg bg-[#05271F] border border-[#184D3F] text-xs text-[#E7C77E] font-mono flex items-center gap-2">
+                  <i data-lucide="flame" class="w-3.5 h-3.5 text-[#D6A94F]"></i> 18-Day Consistency
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- =================================================================
+               D. TARGET PLACEMENT PROFILE: CLEAN WARM IVORY SURFACE
+               ================================================================= -->
+          <div class="cm-card-ivory p-6 space-y-5">
+            <div class="flex items-center justify-between pb-3.5 border-b border-[#E6D5B7]">
+              <div>
+                <h3 class="text-lg font-bold text-[#18251F] font-serif">Target Placement Profile</h3>
+                <p class="text-xs text-[#556E62] mt-0.5">Recruiter matching criteria &amp; targeted corporate drives</p>
+              </div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#075B45] text-[#F7F2E7] font-mono text-xs font-semibold shadow-sm">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A94F]"></i> Tier-1 Ready
+              </span>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <span class="text-xs font-mono uppercase tracking-wider text-[#556E62] block mb-2 font-semibold">Primary Target Roles</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 rounded-md bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono text-xs font-medium">SDE-1 (Software Development Engineer)</span>
+                  <span class="px-3 py-1 rounded-md bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono text-xs font-medium">Backend Systems Engineer</span>
+                  <span class="px-3 py-1 rounded-md bg-[#EFE7D7] border border-[#D8CDB9] text-[#18251F] font-mono text-xs font-medium">Distributed Cloud Engineer</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-xs font-mono uppercase tracking-wider text-[#556E62] block mb-2 font-semibold">Dream Placement Drives</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 rounded-full bg-[#003D30] text-[#F7F2E7] text-xs font-medium flex items-center gap-1.5 border border-[#184D3F]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#D6A94F]"></span> Google
+                  </span>
+                  <span class="px-3 py-1 rounded-full bg-[#003D30] text-[#F7F2E7] text-xs font-medium flex items-center gap-1.5 border border-[#184D3F]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#D6A94F]"></span> Microsoft
+                  </span>
+                  <span class="px-3 py-1 rounded-full bg-[#003D30] text-[#F7F2E7] text-xs font-medium flex items-center gap-1.5 border border-[#184D3F]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#D6A94F]"></span> Amazon
+                  </span>
+                  <span class="px-3 py-1 rounded-full bg-[#003D30] text-[#F7F2E7] text-xs font-medium flex items-center gap-1.5 border border-[#184D3F]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#D6A94F]"></span> Atlassian
+                  </span>
+                  <span class="px-3 py-1 rounded-full bg-[#003D30] text-[#F7F2E7] text-xs font-medium flex items-center gap-1.5 border border-[#184D3F]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#D6A94F]"></span> Razorpay
+                  </span>
+                </div>
+              </div>
+
+              <!-- ===============================================================
+                   E. LINKED CODING ACCOUNTS (DEVELOPER PORTFOLIO PANEL)
+                   =============================================================== -->
+              <div class="p-4 rounded-xl bg-[#EFE7D7] border border-[#D8CDB9] space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono uppercase tracking-wider font-semibold text-[#18251F] flex items-center gap-2">
+                    <i data-lucide="link-2" class="w-3.5 h-3.5 text-[#075B45]"></i> Linked Developer Portfolios
+                  </span>
+                  <span class="text-[11px] font-mono text-[#075B45] font-semibold bg-[#075B45]/10 px-2 py-0.5 rounded">
+                    Verified Sync
+                  </span>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                  <div class="flex items-center justify-between p-2 rounded bg-[#F7F2E7] border border-[#D8CDB9]">
+                    <div class="flex items-center gap-2.5">
+                      <i data-lucide="github" class="w-4 h-4 text-[#18251F]"></i>
+                      <span class="font-mono text-[#18251F]">github.com/swetagupta</span>
+                    </div>
+                    <span class="text-[#556E62] font-mono">1,248 commits</span>
+                  </div>
+
+                  <div class="flex items-center justify-between p-2 rounded bg-[#F7F2E7] border border-[#D8CDB9]">
+                    <div class="flex items-center gap-2.5">
+                      <i data-lucide="code" class="w-4 h-4 text-[#075B45]"></i>
+                      <span class="font-mono text-[#18251F]">leetcode.com/swetagupta</span>
+                    </div>
+                    <span class="text-[#075B45] font-mono font-semibold">Rating 1840 (Top 6%)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-[#E6D5B7] flex items-center justify-between text-xs text-[#556E62]">
+              <span>Need to change placement preferences?</span>
+              <button onclick="switchView('settings')" class="text-[#075B45] hover:text-[#D6A94F] font-semibold flex items-center gap-1 transition-colors">
+                Edit in Settings &rarr;
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           VIEW 12: PUBLIC SAAS LANDING PAGE
+           ===================================================================== -->
+      <div id="view-landing" class="cm-view-container hidden space-y-12 max-w-[1240px] py-4">
+        
+        <!-- Hero Section -->
+        <div class="text-center max-w-3xl mx-auto space-y-5 pt-6">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#182B22] border border-[#2B6555] cm-metadata font-semibold text-[#77D0B8]">
+            <span class="w-2 h-2 rounded-full bg-[#77D0B8] animate-pulse"></span>
+            Campus Placements 2026-2027 Cohort Now Active
+          </div>
+
+          <h1 class="cm-display text-4xl md:text-[44px] text-[#F1F5F2] tracking-tight leading-[1.15]">
+            Learn. Practise. Build. <br>
+            <span class="text-[#77D0B8]">Get Hired.</span>
+          </h1>
+
+          <p class="cm-body text-base text-[#A8B5AD] leading-relaxed max-w-2xl mx-auto">
+            The complete developer education and IT preparation hub engineered for students to master Data Structures, crack Tier-1 technical interviews, and build production-grade distributed systems.
+          </p>
+
+          <div class="pt-2 flex flex-wrap items-center justify-center gap-3.5">
+            <button onclick="switchView('dashboard')" class="cm-btn-primary h-10 px-6 text-sm font-semibold shadow-lg shadow-[rgba(119,208,184,0.15)]">
+              Launch Student App <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+            <button onclick="switchView('auth'); switchAuthTab('register')" class="cm-btn-secondary h-10 px-6 text-sm font-medium">
+              Create Free Account
+            </button>
+          </div>
+        </div>
+
+        <!-- Platform Metric Counters -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="cm-card p-5 text-center">
+            <div class="cm-stat-num text-3xl md:text-[34px] text-[#F1F5F2]">45,000+</div>
+            <div class="cm-stat-label mt-1.5">Students Placed</div>
+          </div>
+          <div class="cm-card p-5 text-center">
+            <div class="cm-stat-num text-3xl md:text-[34px] text-[#77D0B8]">850+</div>
+            <div class="cm-stat-label mt-1.5">Curated DSA Problems</div>
+          </div>
+          <div class="cm-card p-5 text-center">
+            <div class="cm-stat-num text-3xl md:text-[34px] text-[#63C995]">140+</div>
+            <div class="cm-stat-label mt-1.5">System Design Blueprints</div>
+          </div>
+          <div class="cm-card p-5 text-center">
+            <div class="cm-stat-num text-3xl md:text-[34px] text-[#E8B86A]">94.2%</div>
+            <div class="cm-stat-label mt-1.5">Placement Conversion Rate</div>
+          </div>
+        </div>
+
+        <!-- 4 Core Pillars of CodeMentor -->
+        <div class="space-y-6">
+          <div class="text-center space-y-1.5">
+            <span class="cm-metadata text-[#77D0B8] uppercase tracking-wider block">Engineered for Placement Success</span>
+            <h2 class="cm-section-title text-2xl text-[#F1F5F2]">Everything You Need Under One Roof</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="cm-card space-y-3 p-5">
+              <div class="cm-icon-box"><i data-lucide="route" class="w-4 h-4"></i></div>
+              <h3 class="cm-card-title text-[#F1F5F2]">Structured Learning Paths</h3>
+              <p class="cm-body text-xs text-[#A8B5AD] leading-relaxed">Step-by-step curriculums from Java Backend to Systems Programming. Eliminate tutorial hell with sequential roadmaps.</p>
+            </div>
+
+            <div class="cm-card space-y-3 p-5">
+              <div class="cm-icon-box"><i data-lucide="code-2" class="w-4 h-4"></i></div>
+              <h3 class="cm-card-title text-[#F1F5F2]">Interactive Code Sandbox</h3>
+              <p class="cm-body text-xs text-[#A8B5AD] leading-relaxed">Write, execute, and benchmark your code directly in the browser across Java, Python, and C++ with real unit tests.</p>
+            </div>
+
+            <div class="cm-card space-y-3 p-5">
+              <div class="cm-icon-box"><i data-lucide="message-square-text" class="w-4 h-4"></i></div>
+              <h3 class="cm-card-title text-[#F1F5F2]">Company Interview Banks</h3>
+              <p class="cm-body text-xs text-[#A8B5AD] leading-relaxed">Real interview questions asked by Google, Microsoft, and Amazon with comprehensive architectural explanations.</p>
+            </div>
+
+            <div class="cm-card space-y-3 p-5">
+              <div class="cm-icon-box"><i data-lucide="folder-kanban" class="w-4 h-4"></i></div>
+              <h3 class="cm-card-title text-[#F1F5F2]">Production Portfolio Projects</h3>
+              <p class="cm-body text-xs text-[#A8B5AD] leading-relaxed">Build distributed key-value stores, collaborative code editors, and real-time microservices that impress recruiters.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Placement Organizations -->
+        <div class="cm-card p-6 text-center space-y-3.5">
+          <div class="cm-supporting text-[#75857B] font-medium">Our alumni engineer at world-class technology organizations</div>
+          <div class="flex flex-wrap items-center justify-center gap-8 text-sm font-bold text-[#A8B5AD]">
+            <span class="hover:text-[#F1F5F2] transition-colors">Google</span>
+            <span class="hover:text-[#F1F5F2] transition-colors">Microsoft</span>
+            <span class="hover:text-[#F1F5F2] transition-colors">Amazon</span>
+            <span class="hover:text-[#F1F5F2] transition-colors">Atlassian</span>
+            <span class="hover:text-[#F1F5F2] transition-colors">Uber</span>
+            <span class="hover:text-[#F1F5F2] transition-colors">Razorpay</span>
+            <span class="hover:text-[#F1F5F2] transition-colors">Flipkart</span>
+          </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="cm-card-featured p-8 text-center space-y-4">
+          <h2 class="cm-page-title text-2xl md:text-3xl text-[#F1F5F2]">Start Preparing for Campus Drives Today</h2>
+          <p class="cm-body text-[#A8B5AD] max-w-xl mx-auto">Access 850+ DSA challenges, live roadmaps, and mock interview simulations without distraction.</p>
+          <button onclick="switchView('dashboard')" class="cm-btn-primary h-10 px-7 text-sm font-semibold">
+            Open Student Dashboard Now &rarr;
+          </button>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           VIEW 13: THE SIGNATURE ANIMATED GREEN BLADE AUTHENTICATION STAGE
+           Warm Ivory form side + Moving Diagonal Emerald Blade with Lit Seams
+           ===================================================================== -->
+      <div id="view-auth" class="cm-view-container hidden py-4 max-w-[1240px] mx-auto space-y-4">
+        
+        <!-- Header Utility Strip -->
+        <div class="flex items-center justify-between px-2">
+          <button onclick="switchView('dashboard')" class="text-xs text-[#82958A] hover:text-[#D6A94F] flex items-center gap-1.5 transition-colors font-medium">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Return to Student Dashboard
+          </button>
+          <div class="flex items-center gap-2 text-xs font-mono text-[#82958A]">
+            <span class="w-2 h-2 rounded-full bg-[#63A982] animate-pulse"></span>
+            <span>Secure 256-bit TLS Encrypted Auth</span>
+          </div>
+        </div>
+
+        <div class="cm-auth-stage">
+          <!-- The Main Dual-Panel Auth Card with Sweeping Diagonal Blade -->
+          <div id="auth-main-card" class="cm-auth-card mode-signin">
+            
+            <!-- Mobile Fallback Banner (only rendered on <=900px screens) -->
+            <div class="cm-mobile-auth-banner">
+              <div class="text-[11px] font-mono uppercase tracking-widest text-[#D6A94F]">CodeMentor IT Prep Hub</div>
+              <h3 class="text-xl font-serif font-bold text-[#F7F2E7] mt-1">Your next chapter starts here.</h3>
+            </div>
+
+            <!-- ========================================================
+                 1. LEFT SIDE: SIGN IN FORM (Warm Ivory Background)
+                 ======================================================== -->
+            <div class="cm-auth-form-side side-signin">
+              <div class="max-w-[380px] w-full mx-auto">
+                <div class="mb-6">
+                  <h2 class="text-3xl font-serif font-bold text-[#18251F] tracking-tight">Sign in</h2>
+                  <div class="h-0.5 w-12 bg-[#075B45] mt-2 mb-3"></div>
+                  <p class="text-[13.5px] text-[#556E62] leading-relaxed">
+                    Continue your journey towards becoming a job-ready developer.
+                  </p>
+                </div>
+
+                <form id="form-signin" onsubmit="handleSignInSubmit(event)">
+                  <!-- Email -->
+                  <div class="cm-form-group">
+                    <label class="cm-form-label">Username or email</label>
+                    <div class="relative">
+                      <input type="email" id="signin-email" required value="swetagupta787@gmail.com" class="cm-input-ivory" placeholder="student@university.edu">
+                      <i data-lucide="user" class="cm-input-icon"></i>
+                    </div>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="cm-form-group">
+                    <label class="cm-form-label">Password</label>
+                    <div class="relative">
+                      <input type="password" id="signin-password" required value="••••••••••••" class="cm-input-ivory" placeholder="Enter your password">
+                      <button type="button" onclick="toggleAuthPassword('signin-password', 'signin-eye-icon')" class="absolute right-0 bottom-2.5 text-[#7A9588] hover:text-[#18251F] transition-colors">
+                        <i id="signin-eye-icon" data-lucide="eye" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Remember me & Forgot Password -->
+                  <div class="flex items-center justify-between text-xs mb-6">
+                    <label class="flex items-center gap-2 cursor-pointer select-none text-[#556E62]">
+                      <input type="checkbox" id="signin-remember" checked class="rounded border-[#D8CDB9] text-[#075B45] accent-[#075B45]">
+                      <span>Keep me signed in</span>
+                    </label>
+                    <a href="#" onclick="openForgotPasswordModal(); return false;" class="text-[#075B45] hover:text-[#D6A94F] font-semibold underline underline-offset-2">Forgot password?</a>
+                  </div>
+
+                  <!-- Sign In Submit Button -->
+                  <button type="submit" id="signin-submit-btn" class="cm-btn-emerald-pill mb-4">
+                    <span>Sign in</span>
+                  </button>
+                </form>
+
+                <!-- Switch to Sign Up link -->
+                <div class="text-xs text-[#556E62] text-center pt-2">
+                  New to CodeMentor? <span class="auth-switch-link" onclick="authSetMode('signup')">Create an account</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 2. RIGHT SIDE: SIGN UP FORM (Warm Ivory Background)
+                 ======================================================== -->
+            <div class="cm-auth-form-side side-signup">
+              <div class="max-w-[380px] w-full mx-auto">
+                <div class="mb-5">
+                  <h2 class="text-3xl font-serif font-bold text-[#18251F] tracking-tight">Create account</h2>
+                  <div class="h-0.5 w-12 bg-[#075B45] mt-2 mb-2.5"></div>
+                  <p class="text-[13px] text-[#556E62] leading-relaxed">
+                    Start building your technical career with a structured curriculum.
+                  </p>
+                </div>
+
+                <form id="form-signup" onsubmit="handleSignUpSubmit(event)">
+                  <!-- Full Name -->
+                  <div class="cm-form-group mb-4">
+                    <label class="cm-form-label">Full name</label>
+                    <div class="relative">
+                      <input type="text" id="signup-name" required placeholder="e.g. Sweta Gupta" class="cm-input-ivory">
+                      <i data-lucide="user" class="cm-input-icon"></i>
+                    </div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="cm-form-group mb-4">
+                    <label class="cm-form-label">Email address</label>
+                    <div class="relative">
+                      <input type="email" id="signup-email" required placeholder="name@college.edu" class="cm-input-ivory">
+                      <i data-lucide="mail" class="cm-input-icon"></i>
+                    </div>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="cm-form-group mb-4">
+                    <div class="flex items-center justify-between">
+                      <label class="cm-form-label">Password</label>
+                      <span class="text-[11px] text-[#7A9588] font-mono">Use 8+ characters</span>
+                    </div>
+                    <div class="relative">
+                      <input type="password" id="signup-password" required minlength="8" placeholder="Create a strong password" class="cm-input-ivory">
+                      <button type="button" onclick="toggleAuthPassword('signup-password', 'signup-eye-icon1')" class="absolute right-0 bottom-2.5 text-[#7A9588] hover:text-[#18251F] transition-colors">
+                        <i id="signup-eye-icon1" data-lucide="eye" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Confirm Password -->
+                  <div class="cm-form-group mb-5">
+                    <label class="cm-form-label">Confirm password</label>
+                    <div class="relative">
+                      <input type="password" id="signup-confirm-password" required minlength="8" placeholder="Repeat your password" class="cm-input-ivory">
+                      <button type="button" onclick="toggleAuthPassword('signup-confirm-password', 'signup-eye-icon2')" class="absolute right-0 bottom-2.5 text-[#7A9588] hover:text-[#18251F] transition-colors">
+                        <i id="signup-eye-icon2" data-lucide="eye" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Terms -->
+                  <div class="flex items-start gap-2 text-xs mb-5 text-[#556E62]">
+                    <input type="checkbox" id="signup-terms" required class="mt-0.5 rounded border-[#D8CDB9] text-[#075B45] accent-[#075B45]">
+                    <span>I agree to the <a href="#" onclick="showToast('Terms viewed'); return false;" class="text-[#075B45] underline">Terms of Service</a> &amp; <a href="#" onclick="showToast('Honor Code viewed'); return false;" class="text-[#075B45] underline">Honor Code</a></span>
+                  </div>
+
+                  <!-- Create Account Button -->
+                  <button type="submit" id="signup-submit-btn" class="cm-btn-emerald-pill mb-3">
+                    <span>Create account</span>
+                  </button>
+                </form>
+
+                <!-- Switch to Sign In link -->
+                <div class="text-xs text-[#556E62] text-center">
+                  Already have an account? <span class="auth-switch-link" onclick="authSetMode('signin')">Sign in</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========================================================
+                 3. THE SWEEPING EMERALD BLADE (Moving Diagonal Panel)
+                 ======================================================== -->
+            <div id="auth-blade" class="cm-auth-blade">
+              <!-- Leading Illuminated Lit Edge Seam -->
+              <span class="cm-blade-edge--lead"></span>
+              <!-- Trailing Seam -->
+              <span class="cm-blade-edge--trail"></span>
+
+              <!-- Inner Un-skewed Coordinates Container -->
+              <div class="cm-blade-inner">
+                
+                <!-- Welcome Message A: Shown when in Sign In state (covers right) -->
+                <div id="blade-welcome-signin" class="blade-welcome-card space-y-5">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#003D30]/80 border border-[#184D3F] text-[11px] font-mono tracking-widest uppercase text-[#D6A94F]">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#D6A94F]"></i> CodeMentor IT Prep Hub
+                  </div>
+                  
+                  <h2 class="text-4xl lg:text-[44px] font-serif font-bold text-[#F7F2E7] leading-[1.15] tracking-tight">
+                    Your next chapter <br>
+                    <em class="font-serif italic font-normal text-[#E7C77E]">starts here.</em>
+                  </h2>
+
+                  <div class="h-0.5 w-16 bg-[#D6A94F]"></div>
+
+                  <p class="text-[14px] text-[#B7C8BE] leading-relaxed max-w-sm">
+                    Learn with purpose. Become interview-ready. Master Data Structures and Systems Architecture.
+                  </p>
+
+                  <div class="pt-1 flex flex-col gap-2.5 text-xs font-mono text-[#E7C77E]">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="check-circle-2" class="w-4 h-4 text-[#D6A94F]"></i> 850+ Curated Placement Problems
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="check-circle-2" class="w-4 h-4 text-[#D6A94F]"></i> Tier-1 System Design Blueprints
+                    </div>
+                  </div>
+
+                  <div class="pt-3">
+                    <button type="button" onclick="authSetMode('signup')" class="px-6 py-2.5 rounded-full border border-[#D6A94F] text-[#F7F2E7] hover:bg-[#D6A94F] hover:text-[#05271F] font-semibold text-xs tracking-wider uppercase font-mono transition-all inline-flex items-center gap-2 shadow-md">
+                      <span>Don't have an account? Sign up</span>
+                      <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Welcome Message B: Shown when in Sign Up state (covers left) -->
+                <div id="blade-welcome-signup" class="blade-welcome-card space-y-5">
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#003D30]/80 border border-[#184D3F] text-[11px] font-mono tracking-widest uppercase text-[#D6A94F]">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#D6A94F]"></i> Welcome Back
+                  </div>
+
+                  <h2 class="text-4xl lg:text-[44px] font-serif font-bold text-[#F7F2E7] leading-[1.15] tracking-tight">
+                    Build your future <br>
+                    <em class="font-serif italic font-normal text-[#E7C77E]">with purpose.</em>
+                  </h2>
+
+                  <div class="h-0.5 w-16 bg-[#D6A94F]"></div>
+
+                  <p class="text-[14px] text-[#B7C8BE] leading-relaxed max-w-sm">
+                    Already preparing with CodeMentor? Sign in to resume your active modules, streaks, and benchmarks.
+                  </p>
+
+                  <div class="pt-1 flex flex-col gap-2.5 text-xs font-mono text-[#E7C77E]">
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="check-circle-2" class="w-4 h-4 text-[#D6A94F]"></i> 1-Click Module Resume
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <i data-lucide="check-circle-2" class="w-4 h-4 text-[#D6A94F]"></i> Verified Student ID &amp; Ranking
+                    </div>
+                  </div>
+
+                  <div class="pt-3">
+                    <button type="button" onclick="authSetMode('signin')" class="px-6 py-2.5 rounded-full border border-[#D6A94F] text-[#F7F2E7] hover:bg-[#D6A94F] hover:text-[#05271F] font-semibold text-xs tracking-wider uppercase font-mono transition-all inline-flex items-center gap-2 shadow-md">
+                      <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                      <span>Already have an account? Sign in</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- =====================================================================
+           VIEW 14: COMPLETE DEDICATED COURSE DETAIL & CURRICULUM VIEW
+           ===================================================================== -->
+      <div id="view-course-detail" class="cm-view-container hidden space-y-6 max-w-[1300px]">
+        <!-- Dynamically populated by renderCourseDetail(courseId) -->
+      </div>
+
+      <!-- =====================================================================
+           VIEW 15: DEDICATED LESSON DETAIL & READING ENVIRONMENT
+           ===================================================================== -->
+      <div id="view-lesson-detail" class="cm-view-container hidden space-y-6 max-w-[1240px]">
+        <!-- Dynamically populated by renderLessonDetail(...) -->
+      </div>
+
+      <!-- =====================================================================
+           VIEW 16: DEDICATED CURATED RESOURCE DETAIL PAGE
+           ===================================================================== -->
+      <div id="view-resource-detail" class="cm-view-container hidden space-y-6 max-w-[1240px]">
+        <!-- Dynamically populated by renderResourceDetail(...) -->
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =====================================================================
+       FULL-SCREEN DEDICATED CODING WORKSPACE MODAL
+       ===================================================================== -->
+  <div id="problem-ide-modal" class="cm-modal-backdrop hidden">
+    <div class="cm-card w-full max-w-5xl h-[88vh] p-0 flex flex-col overflow-hidden border border-[#2A3931] shadow-2xl">
+      
+      <!-- Top Workspace Bar -->
+      <div class="h-14 px-4 bg-[#121C18] border-b border-[#223129] flex items-center justify-between flex-shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-[#182B22] border border-[#2B6555] flex items-center justify-center text-[#77D0B8]">
+            <i data-lucide="terminal" class="w-4 h-4"></i>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <h3 id="ide-problem-title" class="cm-card-title text-sm md:text-base text-[#F1F5F2]">1. Find Missing Number in Array</h3>
+            <span id="ide-problem-diff-badge" class="cm-badge cm-badge-easy">Easy</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <select onchange="changeIdeLanguage(this.value)" class="h-8 px-3 rounded-lg bg-[#16231D] border border-[#2A3931] cm-metadata text-[#77D0B8] outline-none">
+            <option value="java">Java 17 (OpenJDK)</option>
+            <option value="python">Python 3.12</option>
+            <option value="cpp">C++ 20 (GCC)</option>
+          </select>
+
+          <button onclick="runIdeCode()" class="cm-btn-secondary text-xs h-8 px-3">
+            <i data-lucide="play" class="w-3.5 h-3.5 text-[#77D0B8] fill-current"></i> Run Code
+          </button>
+          <button onclick="submitIdeCode()" class="cm-btn-primary text-xs h-8 px-3.5">
+            <i data-lucide="send" class="w-3.5 h-3.5"></i> Submit
+          </button>
+          <button onclick="closeProblemModal()" class="w-8 h-8 rounded-lg bg-[#16231D] hover:bg-[#1B2822] text-[#75857B] hover:text-[#F1F5F2] flex items-center justify-center transition-colors">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Split Layout: Left Problem Statement & Right Code Editor -->
+      <div class="flex-1 flex flex-col md:flex-row min-h-0 overflow-hidden">
+        
+        <!-- Left Panel: Problem Statement -->
+        <div class="w-full md:w-[42%] bg-[#101815] border-r border-[#223129] p-5 overflow-y-auto cm-body text-xs text-[#A8B5AD] leading-relaxed">
+          <div class="cm-stat-label mb-2.5">Problem Description</div>
+          <div id="ide-problem-desc" class="space-y-3.5">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+
+        <!-- Right Panel: Code Editor + Test Console -->
+        <div class="flex-1 flex flex-col bg-[#0E1513] min-h-0 overflow-hidden">
+          
+          <div class="flex-1 flex overflow-hidden p-3.5 font-mono text-xs">
+            <div id="ide-gutter" class="cm-ide-gutter text-right pr-3 select-none text-[#556B61]"></div>
+            <textarea 
+              id="ide-code-editor" 
+              class="flex-1 bg-transparent text-[#E0ECE5] outline-none resize-none font-mono text-xs leading-relaxed"
+              spellcheck="false"
+              oninput="updateLineNumbers()"
+            ></textarea>
+          </div>
+
+          <div class="h-44 bg-[#0B100E] border-t border-[#223129] flex flex-col flex-shrink-0">
+            <div class="px-4 py-2 bg-[#121C18] border-b border-[#223129] flex items-center justify-between text-xs font-semibold text-[#75857B]">
+              <span class="flex items-center gap-2 text-[#F1F5F2]">
+                <i data-lucide="terminal" class="w-3.5 h-3.5 text-[#77D0B8]"></i> Test Output
+              </span>
+              <span class="cm-metadata text-[#77D0B8]">Sandbox Ready</span>
+            </div>
+            <div id="ide-console-output" class="p-3.5 overflow-y-auto text-xs font-mono flex-1 text-[#A8B5AD]">
+              <span class="text-[#75857B]">Ready. Click "Run Code" or "Submit" to test against test cases.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       LEARNING PATH ROADMAP TIMELINE MODAL
+       ===================================================================== -->
+  <div id="roadmap-detail-modal" class="cm-modal-backdrop hidden">
+    <div class="cm-card w-full max-w-2xl max-h-[85vh] p-6 flex flex-col overflow-hidden border border-[#2A3931] shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3.5 border-b border-[#223129]">
+        <div>
+          <span class="cm-badge cm-badge-status mb-1.5">Curriculum Timeline</span>
+          <h3 id="roadmap-path-title" class="cm-section-title text-[#F1F5F2]">Java Backend Developer Path</h3>
+        </div>
+        <button onclick="closeRoadmapModal()" class="w-8 h-8 rounded-lg bg-[#16231D] hover:bg-[#1B2822] text-[#75857B] hover:text-[#F1F5F2] flex items-center justify-center transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto py-5 relative space-y-4 pr-1">
+        <div class="cm-roadmap-line"></div>
+
+        <div class="flex items-start gap-4 relative">
+          <div class="cm-roadmap-node completed"><i data-lucide="check" class="w-3.5 h-3.5"></i></div>
+          <div class="p-3.5 rounded-xl bg-[#14201A] border border-[#223129] flex-1">
+            <div class="flex items-center justify-between">
+              <h4 class="cm-card-title text-sm text-[#F1F5F2]">Module 1: Java Core &amp; JVM Deep Dive</h4>
+              <span class="cm-badge cm-badge-easy">Completed</span>
+            </div>
+            <p class="cm-body text-xs text-[#75857B] mt-1">Generics, Collections Framework, Multithreading &amp; Streams API.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 relative">
+          <div class="cm-roadmap-node completed"><i data-lucide="check" class="w-3.5 h-3.5"></i></div>
+          <div class="p-3.5 rounded-xl bg-[#14201A] border border-[#223129] flex-1">
+            <div class="flex items-center justify-between">
+              <h4 class="cm-card-title text-sm text-[#F1F5F2]">Module 2: Relational Databases &amp; Hibernate</h4>
+              <span class="cm-badge cm-badge-easy">Completed</span>
+            </div>
+            <p class="cm-body text-xs text-[#75857B] mt-1">PostgreSQL schema design, indexing, JPA entity mappings.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 relative">
+          <div class="cm-roadmap-node active"><i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i></div>
+          <div class="p-3.5 rounded-xl bg-[#1B2822] border border-[#2B6555] flex-1">
+            <div class="flex items-center justify-between">
+              <h4 class="cm-card-title text-sm text-[#77D0B8]">Module 3: Spring Boot &amp; RESTful APIs</h4>
+              <span class="cm-badge cm-badge-status">In Progress</span>
+            </div>
+            <p class="cm-body text-xs text-[#A8B5AD] mt-1">Dependency injection, Spring Security with JWT, validation.</p>
+            <div class="mt-3 pt-2.5 border-t border-[#223129] flex items-center justify-between">
+              <span class="cm-metadata text-[#75857B]">Lesson 24 of 40: JWT Filter Chains</span>
+              <button onclick="closeRoadmapModal(); showToast('Resuming Lesson 24...')" class="cm-btn-primary text-xs h-7 px-3">
+                Continue Lesson
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 relative">
+          <div class="cm-roadmap-node locked"><i data-lucide="lock" class="w-3.5 h-3.5"></i></div>
+          <div class="p-3.5 rounded-xl bg-[#101815] border border-[#1B2822] flex-1 opacity-60">
+            <div class="flex items-center justify-between">
+              <h4 class="cm-card-title text-sm text-[#75857B]">Module 4: Microservices Architecture &amp; Kafka</h4>
+              <span class="cm-metadata text-[#46554C]">Locked</span>
+            </div>
+            <p class="cm-body text-xs text-[#46554C] mt-1">Service discovery, API Gateway, event streaming with Kafka.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       PROJECT SPECIFICATIONS MODAL
+       ===================================================================== -->
+  <div id="project-detail-modal" class="cm-modal-backdrop hidden">
+    <div class="cm-card w-full max-w-xl max-h-[85vh] p-6 flex flex-col overflow-hidden border border-[#2A3931] shadow-2xl relative">
+      <div class="flex items-center justify-between pb-3.5 border-b border-[#223129]">
+        <div>
+          <span id="project-modal-diff" class="cm-badge cm-badge-medium mb-1.5">Intermediate</span>
+          <h3 id="project-modal-title" class="cm-section-title text-[#F1F5F2]">Real-Time Collaborative Code Editor</h3>
+        </div>
+        <button onclick="closeProjectModal()" class="w-8 h-8 rounded-lg bg-[#16231D] hover:bg-[#1B2822] text-[#75857B] hover:text-[#F1F5F2] flex items-center justify-center transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto py-4 space-y-4 text-xs text-[#A8B5AD]">
+        <div>
+          <div class="cm-stat-label mb-1.5">Project Overview</div>
+          <p class="cm-body text-xs text-[#A8B5AD] leading-relaxed">Build a full-fledged real-time collaborative coding platform supporting concurrent multi-user editing, cursor presence, and an isolated code execution runner.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-[#14201A] border border-[#223129] space-y-2.5">
+          <h4 class="cm-card-title text-xs text-[#F1F5F2]">Milestones</h4>
+          <div class="space-y-1.5 cm-metadata">
+            <div class="flex items-center gap-2 text-[#63C995]"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Milestone 1: WebSocket handshake &amp; rooms</div>
+            <div class="flex items-center gap-2 text-[#63C995]"><i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Milestone 2: Operational Transformation engine</div>
+            <div class="flex items-center gap-2 text-[#77D0B8]"><i data-lucide="play" class="w-3.5 h-3.5"></i> Milestone 3: Monaco Editor with multi-cursor</div>
+            <div class="flex items-center gap-2 text-[#75857B]"><i data-lucide="circle" class="w-3.5 h-3.5"></i> Milestone 4: Docker container code sandbox</div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2">
+          <span class="cm-supporting text-[#75857B]">Estimated: <strong id="project-modal-duration" class="text-[#F1F5F2]">~35 hours</strong></span>
+          <button onclick="closeProjectModal(); showToast('Milestone tracked! 🚀')" class="cm-btn-primary h-9 px-4 text-xs font-semibold">
+            Start Milestone 3
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       FORGOT PASSWORD MODAL (Editorial Warm Ivory & Emerald)
+       ===================================================================== -->
+  <div id="forgot-password-modal" class="cm-modal-backdrop hidden">
+    <div class="w-full max-w-md p-7 rounded-2xl bg-[#F7F2E7] text-[#05271F] border border-[#E6D5B7] shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+      <div class="flex items-start justify-between pb-4 border-b border-[#E6D5B7]/80">
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#003D30]/10 text-[#003D30] font-mono text-[11px] font-semibold">
+            <i data-lucide="key-round" class="w-3.5 h-3.5 text-[#D6A94F]"></i> Security Recovery
+          </div>
+          <h3 class="text-xl font-serif font-bold text-[#05271F] tracking-tight">Reset Account Password</h3>
+        </div>
+        <button onclick="closeForgotPasswordModal()" class="w-8 h-8 rounded-full bg-[#EFE7D7] hover:bg-[#E6D5B7] text-[#05271F] flex items-center justify-center transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleForgotPasswordSubmit(event)" class="mt-5 space-y-4">
+        <p class="text-xs text-[#526359] leading-relaxed">
+          Enter your registered student or corporate email address. We'll send you a secure verification link to reset your credentials.
+        </p>
+
+        <div class="space-y-1.5">
+          <label class="block text-xs font-semibold text-[#05271F] uppercase tracking-wider font-mono">Student Email Address</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#7A8E82]">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </span>
+            <input 
+              type="email" 
+              id="forgot-password-email" 
+              placeholder="e.g. sweta@stanford.edu"
+              required 
+              class="cm-input-ivory pl-10 pr-4 py-2.5 w-full text-xs"
+            >
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button 
+            type="button" 
+            onclick="closeForgotPasswordModal()" 
+            class="px-4 py-2 rounded-full text-xs font-semibold text-[#526359] hover:text-[#05271F] transition-colors"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="cm-btn-emerald-pill text-xs py-2.5 px-5 shadow-md flex items-center gap-2"
+          >
+            <span>Send Reset Link</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script src="scripts/app.js"></script>
+</body>
+</html>
